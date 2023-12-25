@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="header">
+      <li><a href="../../index.html
+        "> <i class="fa-solid fa-arrow-left"></i><span>Back</span></li></a>
+    </div>
+    <div class="container">
+      <div id="add-task-container">
+        <input type="text" placeholder="Enter Task" id="input-task" />
+        <button id="add-task"><i class="fa-solid fa-plus"></i></button>
+      </div>
+      <div id="task-container"></div>
+    </div>
+
+    <script
+      src="https://kit.fontawesome.com/87fbe67857.js"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      const addTask = document.getElementById("add-task");
+      const taskContainer = document.getElementById("task-container");
+      const inputTask = document.getElementById("input-task");
+
+      document.addEventListener("DOMContentLoaded", function () {
+        loadTasks();
+      });
+
+      addTask.addEventListener("click", function () {
+        let taskText = inputTask.value.trim();
+
+        if (taskText === "") {
+          alert("Please Enter a Task");
+        } else {
+          createTaskElement(taskText);
+          saveTask(taskText, false);
+          inputTask.value = "";
+        }
+      });
+
+      function saveTask(task, isChecked) {
+        let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+        tasks.push({ text: task, checked: isChecked });
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+      }
+
+      function loadTasks() {
+        let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+        tasks.forEach(function (task) {
+          createTaskElement(task.text, task.checked);
+        });
+      }
+
+      function removeTask(taskText) {
+        let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+        tasks = tasks.filter(function (t) {
+          return t.text !== taskText;
+        });
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+      }
+
+      function createTaskElement(taskText, isChecked) {
+        let task = document.createElement("div");
+        task.classList.add("task");
+        let li = document.createElement("li");
+        li.innerText = taskText;
+        task.appendChild(li);
+
+        let checkButton = document.createElement("button");
+        checkButton.innerHTML = "<i class='fa-solid fa-check'></i>";
+        checkButton.classList.add("checkTask");
+        task.appendChild(checkButton);
+
+        let deleteButton = document.createElement("button");
+        deleteButton.innerHTML = "<i class='fa-solid fa-trash-can'></i>";
+        deleteButton.classList.add("deleteTask");
+        task.appendChild(deleteButton);
+
+        if (isChecked) {
+          li.style.textDecoration = "line-through";
+        }
+
+        taskContainer.appendChild(task);
+
+        checkButton.addEventListener("click", function () {
+          li.style.textDecoration =
+            li.style.textDecoration === "line-through" ? "" : "line-through";
+          updateTaskState(taskText, li.style.textDecoration === "line-through");
+        });
+
+        deleteButton.addEventListener("click", function () {
+          task.remove();
+          removeTask(taskText);
+        });
+      }
+
+      function updateTaskState(taskText, isChecked) {
+        let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+        tasks.forEach(function (task) {
+          if (task.text === taskText) {
+            task.checked = isChecked;
+          }
+        });
+        localStorage.setItem("tasks", JSON.stringify(tasks));
+      }
+    </script>
+  </body>
+</html>
