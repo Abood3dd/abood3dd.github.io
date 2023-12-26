@@ -55,7 +55,7 @@ body {
   align-content: flex-start;
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
-  gap: 5px;
+  gap: 20px;
   justify-items: center;
 }
 .main-sec .card {
@@ -83,6 +83,7 @@ body {
 }
 .main-sec .card:hover {
   background: #0011ff;
+  transform: scale(1.05);
 }
 .main-sec .card img {
   border-radius: 10px;
