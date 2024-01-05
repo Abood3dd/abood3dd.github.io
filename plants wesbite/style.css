@@ -1,0 +1,316 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Open Sans", sans-serif;
+}
+body {
+  height: 100vh;
+  overflow: hidden;
+}
+ul {
+  list-style: none;
+}
+.dots {
+  width: 170px;
+  height: 100px;
+  display: grid;
+  grid-template-columns: repeat(8, 12px);
+  grid-template-rows: repeat(5, 12px);
+  gap: 10px;
+}
+@media (max-width: 768px) {
+  .dots {
+    display: none;
+  }
+}
+.dots span {
+  width: 7px;
+  height: 7px;
+  background-color: #8ea98d;
+  border-radius: 50%;
+}
+header {
+  display: flex;
+  width: 100%;
+  height: 150px;
+  flex-direction: row;
+}
+header ul {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  align-items: flex-start;
+  position: relative;
+  align-content: flex-start;
+  justify-content: space-evenly;
+}
+header .logo {
+  position: relative;
+}
+@media (max-width: 768px) {
+  header .logo {
+    border-bottom: 2px solid black;
+  }
+}
+header .logo img {
+  max-width: 100px;
+  position: absolute;
+  bottom: -40px;
+}
+@media (max-width: 768px) {
+  header .logo img {
+    left: 10px;
+  }
+}
+header .toggle-menu {
+  margin-right: 15px;
+  color: white;
+  font-size: 22px;
+}
+@media (min-width: 769px) {
+  header .logo .toggle-menu {
+    display: none;
+  }
+}
+header .logo::before {
+  content: "";
+  width: 126px;
+  height: 80px;
+  background-color: #273436;
+}
+header .logo::after {
+  content: "";
+  position: absolute;
+  width: 126px;
+  height: 100px;
+  top: 25px;
+  z-index: -1;
+  border-bottom-left-radius: 100%;
+  border-bottom-right-radius: 100%;
+  background-color: #273436;
+}
+header div,
+header ul li {
+  z-index: 1;
+  height: 80px;
+  width: calc(100% / 7);
+  display: flex;
+  background-color: #8ea98d;
+  align-items: center;
+  justify-content: center;
+}
+@media (max-width: 768px) {
+  header div {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-between;
+  }
+  header div:not(.logo) {
+    justify-content: center;
+  }
+
+  header ul {
+    display: none;
+  }
+}
+
+header ul li {
+  position: relative;
+}
+header ul li div span {
+  margin-top: 25px;
+}
+header ul li div.cart {
+  width: 100%;
+  background-color: #273436;
+  color: #e0ecdf;
+  position: relative;
+}
+header ul li div.cart:before {
+  content: "3";
+  position: absolute;
+  background-color: #e0ecdf;
+  width: 15px;
+  height: 15px;
+  font-size: 10px;
+  border-radius: 50%;
+  color: #273436;
+  text-align: center;
+  right: 25%;
+  bottom: 20px;
+}
+header ul li div:not(.cart, .logo)::before {
+  content: "";
+  position: absolute;
+  width: 70px;
+  padding: 20px;
+  background: #e0ecdf;
+  height: 70%;
+  z-index: -1;
+  top: -100px;
+  transition: 0.3s;
+}
+header ul li:hover div:not(.cart)::before {
+  top: 0;
+}
+@media (max-width: 768px) {
+  header ul li div:not(.cart, .logo)::before {
+    display: none;
+  }
+}
+header ul.mobile {
+  display: flex;
+  margin-top: 80px;
+  flex-direction: column;
+  position: absolute;
+  z-index: -1;
+  width: 100%;
+}
+header ul.mobile li {
+  width: 100%;
+  margin-bottom: 1px;
+}
+header ul.mobile li:hover {
+  background-color: red;
+}
+header ul.mobile li div span {
+  margin-right: 5px;
+}
+.dots.first {
+  position: absolute;
+  top: 130px;
+  right: 0;
+}
+.dots.second {
+  position: absolute;
+  top: 75%;
+  left: -75px;
+  transform: rotate(90deg);
+}
+.plant_img {
+  filter: grayscale(1);
+  position: absolute;
+  z-index: -1;
+}
+@media (max-width: 768px) {
+  .plant_img {
+    display: none;
+  }
+}
+.plant_img.first {
+  right: -30px;
+  width: 772px;
+  top: 96px;
+}
+.plant_img.second {
+  left: -206px;
+  width: 557px px;
+  top: 100px;
+}
+.plants_container {
+  position: relative;
+  width: 615px;
+  height: 600px;
+  margin: auto;
+}
+.plants_container div:first-child img {
+  width: 541px;
+  position: absolute;
+  left: -13px;
+  top: -23px;
+}
+.plants_container div:first-child .info {
+  position: absolute;
+  bottom: 20px;
+  text-align: right;
+  right: -48px;
+  max-width: 200px;
+}
+.plants_container div .info h1 {
+  font-size: 25px;
+  margin-bottom: 5px;
+  position: relative;
+}
+.plants_container div .info h1::before {
+  content: "";
+  position: absolute;
+  width: 230px;
+  height: 2px;
+  top: -10px;
+  right: 1px;
+  border-top: 1px solid black;
+}
+.plants_container div .info span {
+  color: #8ea98d;
+  font-size: 20px;
+  font-style: italic;
+  margin: 20px 0;
+}
+.plants_container div .info p {
+  height: 60px;
+  font-size: 10px;
+  margin-top: 5px;
+  color: #273436;
+}
+.plants_container div .info button {
+  width: 120px;
+  padding: 10px;
+  color: white;
+  background-color: #273436;
+  border: none;
+}
+.plants_container div:nth-child(2) {
+  position: relative;
+}
+.plants_container div:nth-child(2) img {
+  width: 250px;
+  position: absolute;
+  border-radius: 50%;
+  background: white;
+  padding: 10px;
+  left: 360px;
+  top: 25px;
+}
+.plants_container div:nth-child(2) .info {
+  position: absolute;
+  left: 650px;
+  top: 147px;
+  text-align: right;
+  width: 200px;
+}
+.plants_container div:nth-child(2) .info h1::before {
+  width: 300px;
+}
+.plants_container .sale {
+  width: 200px;
+  position: relative;
+}
+.plants_container .sale img {
+  width: 100%;
+  position: absolute;
+  left: -140px;
+  top: 100px;
+}
+.plants_container div:nth-child(3) {
+  position: absolute;
+  width: 200px;
+  bottom: 21px;
+  left: -98px;
+}
+.plants_container div:nth-child(3) img {
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  padding: 10px;
+}
+.plants_container div:nth-child(3) .info {
+  width: 230px;
+  position: absolute;
+  top: 60px;
+  left: -160px;
+}
