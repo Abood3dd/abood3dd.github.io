@@ -352,7 +352,6 @@ body {
 /* portofolio  */
 .portfolio {
     padding-top: var(--section-padding);
-    padding-bottom: var(--section-padding);
     background-color: var(--section-background);
 }
 
