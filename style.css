@@ -152,7 +152,7 @@ button.up {
   font-size: 20px;
   color: white;
   position: fixed;
-  display: inline;
+  display: none;
   right: 20px;
   bottom: 20px;
   clip-path: polygon(
