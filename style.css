@@ -152,6 +152,7 @@ button.up {
   font-size: 20px;
   color: white;
   position: fixed;
+  z-index: 1000;
   display: none;
   right: 20px;
   bottom: 20px;
