@@ -160,7 +160,7 @@ header nav ul {
     display: none;
   }
 
-  header nav .toggle-menu:hover+ul {
+  header nav .toggle-menu:hover + ul {
     display: flex;
     flex-direction: column;
     position: absolute;
@@ -439,7 +439,6 @@ header nav .form i {
 /* portfolio  */
 .portfolio {
   padding-top: var(--section-padding);
-  padding-bottom: var(--section-padding);
 }
 
 .portfolio .shuffle {
@@ -695,19 +694,19 @@ header nav .form i {
 }
 
 @media (min-width: 992px) {
-  .our-skills .container>div {
+  .our-skills .container > div {
     flex-basis: 45%;
   }
 }
 
-.our-skills .container>div>h3 {
+.our-skills .container > div > h3 {
   margin: 0 0 30px;
   font-weight: normal;
   text-align: center;
   text-transform: uppercase;
 }
 
-.our-skills .container>div>p {
+.our-skills .container > div > p {
   color: var(--font-color);
   line-height: 2;
   text-align: center;
@@ -890,7 +889,6 @@ q::after {
   text-align: center;
 }
 
-
 .pricing .plans .plan .head {
   padding: 40px 20px;
   border-top: 1px solid var(--main-color);
@@ -901,7 +899,6 @@ q::after {
   font-weight: normal;
   margin-bottom: 20px;
   text-transform: uppercase;
-
 }
 
 .pricing .plans .plan .head span {
@@ -931,7 +928,6 @@ q::after {
 
 .pricing .plans .plan ul li {
   padding: 20px;
-
 }
 
 .pricing .plans .plan ul li:not(:last-child) {
@@ -1006,10 +1002,9 @@ q::after {
   position: relative;
   display: flex;
   align-items: center;
-
 }
 
-@media (max-width:991px) {
+@media (max-width: 991px) {
   .subscribe .container {
     flex-direction: column;
   }
@@ -1062,7 +1057,7 @@ q::after {
   margin-left: 50px;
 }
 
-@media (max-width:991px) {
+@media (max-width: 991px) {
   .subscribe p {
     margin: 30px 0 0;
   }
@@ -1081,7 +1076,7 @@ q::after {
   justify-content: space-between;
 }
 
-@media (max-width:767px) {
+@media (max-width: 767px) {
   .contact .content {
     flex-direction: column;
   }
@@ -1122,13 +1117,11 @@ q::after {
   flex-basis: 25%;
 }
 
-@media (max-width:767px) {
+@media (max-width: 767px) {
   .contact .content .info {
     order: -1;
     text-align: center;
-
   }
-
 }
 
 .contact .content .info h4 {
@@ -1148,7 +1141,7 @@ q::after {
   margin-top: 90px;
 }
 
-@media (max-width:767px) {
+@media (max-width: 767px) {
   .contact .content .info h4:nth-of-type(2) {
     margin-top: 30px;
   }
@@ -1159,7 +1152,7 @@ q::after {
   line-height: 2;
 }
 
-@media (max-width:767px) {
+@media (max-width: 767px) {
   .contact .content .info address {
     margin-bottom: 40px;
   }
@@ -1184,7 +1177,7 @@ q::after {
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: rgb(0 0 0 / 70%)
+  background-color: rgb(0 0 0 / 70%);
 }
 
 .footer .container {
