@@ -145,7 +145,30 @@ section {
   background-position: center center;
   justify-content: center;
 }
-
+button.up {
+  background: red;
+  border: none;
+  padding: 25px;
+  font-size: 20px;
+  color: white;
+  position: fixed;
+  display: inline;
+  right: 20px;
+  bottom: 20px;
+  clip-path: polygon(
+    25% 100%,
+    25% 50%,
+    0 50%,
+    50% 0,
+    100% 50%,
+    70% 50%,
+    70% 100%
+  );
+  transition: 0.5s background-color;
+}
+button.up:hover {
+  background-color: var(--main-color);
+}
 .main h2 {
   color: white;
   font-size: 1.4em;
