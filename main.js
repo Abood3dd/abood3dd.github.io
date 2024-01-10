@@ -12,9 +12,9 @@ tools.addEventListener("click", function () {
 let btn = document.querySelector(".up");
 window.onscroll = function () {
   if (window.scrollY >= 600) {
-    btn.style.display = "block";
+    btn.classList.add("block");
   } else {
-    btn.style.display = "none";
+    btn.classList.remove("block");
   }
 };
 btn.onclick = function () {
