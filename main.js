@@ -16,6 +16,11 @@ window.onscroll = function () {
   } else {
     btn.classList.remove("block");
   }
+  if (btn.classList.contains("block")) {
+    btn.classList.remove("hidden");
+  } else {
+    btn.classList.add("hidden");
+  }
 };
 btn.onclick = function () {
   window.scrollTo({

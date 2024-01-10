@@ -149,11 +149,9 @@ button.up {
   background: red;
   border: none;
   padding: 20px;
-
   position: fixed;
   z-index: 1000;
-  display: none;
-  right: 20px;
+  right: -50px;
   bottom: 20px;
   clip-path: polygon(
     25% 100%,
@@ -170,8 +168,10 @@ button.up:hover {
   background-color: var(--main-color);
 }
 button.up.block {
-  display: block;
-  animation: btn 0.5s cubic-bezier(0.4, 0, 1, 1);
+  animation: btn 0.5s cubic-bezier(0.4, 0, 1, 1) both;
+}
+button.up.hidden {
+  animation: btn_rev 0.5s cubic-bezier(0.4, 0, 1, 1) both;
 }
 .main h2 {
   color: white;
@@ -561,6 +561,14 @@ button.up.block {
     right: -50px;
   }
   to {
-    right: 0;
+    right: 10px;
+  }
+}
+@keyframes btn_rev {
+  from {
+    right: 10px;
+  }
+  to {
+    right: -50px;
   }
 }
