@@ -1,3 +1,6 @@
+//game_over menu
+const Menu = document.querySelector(".over");
+const button = document.querySelector("button");
 var blockSize = 25;
 var rows = 20;
 var cols = 20;
@@ -66,18 +69,13 @@ function update() {
     snakeY > rows * blockSize - 5
   ) {
     gameOver = true;
-    alert("Game Over ");
-    setTimeout(() => {
-      location.reload();
-    });
+    game_over();
+
   }
   for (let i = 0; i < snakeBody.length; i++) {
     if (snakeX == snakeBody[i][0] && snakeY == snakeBody[i][1]) {
       gameOver = true;
-      alert("Game Over ");
-      setTimeout(() => {
-        location.reload();
-      });
+      game_over();
     }
   }
 }
@@ -101,3 +99,11 @@ function placefood() {
   foodX = Math.floor(Math.random() * cols) * blockSize;
   foodY = Math.floor(Math.random() * rows) * blockSize;
 }
+
+function game_over(params) {
+  if (gameOver) {
+    Menu.style.display = "block";
+    document.body.style.background = "rgba(0, 0, 0, 0.7)";
+  }
+}
+button.addEventListener("click", () => location.reload());
