@@ -3,7 +3,7 @@ const left_arrow = document.querySelector(".left");
 const landing = document.querySelector(".landing");
 const bullet = document.querySelectorAll(".bullet");
 
-let image = parseInt(window.localStorage.getItem("image")) || 2;
+let image = parseInt(window.localStorage.getItem("image")) || 1;
 window.addEventListener("load", function () {
   changeIMG();
 });
