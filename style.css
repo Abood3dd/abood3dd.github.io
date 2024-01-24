@@ -253,12 +253,23 @@ button.up.hidden {
   padding: 20px;
   margin: 15px;
   transition: 0.75s ease;
+  transform: translateX(-1000px);
+  animation: fly-in linear 1s;
+  animation-timeline: view(block);
+  animation-range: contain -20% contain 40%;
+  animation-fill-mode: forwards; 
 }
-
+@keyframes fly-in {
+  from {
+    transform: translateX(-1000px);
+  }
+  to {
+    transform: translateX(0); 
+  }
+}
 .card:hover {
   transform: scale(1.1);
 }
-
 .icon {
   color: blue;
   font-size: 7.2em;
