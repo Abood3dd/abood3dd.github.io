@@ -3,6 +3,7 @@ const left_arrow = document.querySelector(".left");
 const landing = document.querySelector(".landing");
 const bullet = document.querySelectorAll(".bullet");
 
+const copyright = document.querySelector(".copyright");
 let image = parseInt(window.localStorage.getItem("image")) || 1;
 window.addEventListener("load", function () {
   changeIMG();
@@ -38,4 +39,5 @@ let date = new Date();
 window.onload = function () {
   copyright.innerHTML = `&copy; ${date.getFullYear()} <span>Kasper</span> All Rights Reserved`;
 };
+
 
