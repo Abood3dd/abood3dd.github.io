@@ -34,4 +34,8 @@ function changeIMG() {
   bullet[image - 1].classList.add("active");
 }
 
+let date = new Date();
+window.onload = function () {
+  copyright.innerHTML = `&copy; ${date.getFullYear()} <span>Kasper</span> All Rights Reserved`;
+};
 
