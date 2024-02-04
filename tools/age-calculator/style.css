@@ -1,0 +1,109 @@
+* {
+  font-family: Arial, sans-serif;
+}
+form {
+  padding: 50px;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+}
+body {
+  display: grid;
+  place-items: center;
+  background-color: #ddd;
+}
+.home {
+  overflow: hidden;
+  max-width: 100%;
+  background-color: white;
+  position: relative;
+  border-radius: 20px;
+  padding: 20px;
+  border-bottom-right-radius: 30%;
+  margin-top: 100px;
+}
+.days,
+.months,
+.years {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+input {
+  position: relative;
+  padding: 20px;
+  border-radius: 5px;
+  border: 1px solid black;
+  font-size: 1.25rem; /* Converted from 20px */
+  width: 80px;
+}
+input:focus {
+  outline-color: purple;
+  outline-width: 1px;
+}
+input::placeholder {
+  font-weight: bold;
+}
+label.str {
+  top: 30px;
+  color: gray;
+}
+label.error {
+  color: rgba(173, 0, 0, 0.637);
+  font-style: italic;
+}
+svg {
+  background-color: purple;
+  padding: 10px;
+  border-radius: 50%;
+}
+.btn-container {
+  width: 100%;
+  height: 1px;
+  background-color: gray;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.Btn {
+  background-color: white;
+  border: none;
+}
+h1 {
+  font-size: 6.25rem; /* Converted from 100px */
+  margin-left: 50px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+h1 span {
+  font-size: 7.5rem; /* Converted from 120px */
+  font-style: italic;
+  color: purple;
+}
+.attribution {
+  position: absolute;
+  bottom: 5px;
+}
+@media (max-width: 991px) {
+  html {
+    font-size: 62.5%;
+  }
+  .btn-container {
+    justify-content: center;
+  }
+  .Btn svg {
+    padding: 5px;
+  }
+}
+
+@media (max-width: 661px) {
+  html {
+    font-size: 42.5%;
+  }
+
+  input {
+    width: 40px;
+    margin: 0 5px;
+  }
+}
