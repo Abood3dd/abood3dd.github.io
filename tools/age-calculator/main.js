@@ -17,9 +17,12 @@ Btn.addEventListener("click", function () {
     days.value <= 31 &&
     months.value <= 12 &&
     years.value > 1000 &&
-    years.value < currentDate.getFullYear()
+    years.value < currentDate.getFullYear() &&
+    days.value > 0 &&
+    months.value > 0 &&
+    years.value > 0
   ) {
-    age(parseInt(days.value), parseInt(months.value), parseInt(years.value)); 
+    age(parseInt(days.value), parseInt(months.value), parseInt(years.value));
     error.forEach((element) => {
       element.textContent = "";
     });
