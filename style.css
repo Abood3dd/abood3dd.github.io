@@ -31,7 +31,7 @@ header .tools i {
 header .tools {
   position: relative;
 }
-header .tools i:after {
+header .tools > i:after {
   content: "Tools";
   font-family: "Poppins", sans-serif;
   position: absolute;
@@ -56,14 +56,25 @@ header .tools i:hover:after {
 }
 header .tools .tools-container {
   position: absolute;
-  width: 197px;
-  left: -172px;
-  top: 45px;
+  width: 583px;
+  left: -560px;
+  top: 49px;
   background: #f0f0f0;
   display: none;
 }
+header .tools .tools-container .toolsOne,
+.toolsTwo {
+  width: 50%;
+}
+.toolsOne {
+  border-right: 5px solid gray;
+}
+.toolsTwo {
+  margin-left: 5px;
+}
+
 header .tools .tools-container.shown {
-  display: block;
+  display: flex;
 }
 header .tools .tools-container:before {
   content: "";
@@ -90,14 +101,13 @@ header .tools .tools-container .tool {
   position: relative;
   overflow: hidden;
 }
-header .tools .tools-container .tool i {
+header .tools .tools-container .toolsOne .tool i {
   position: absolute;
   top: 0;
   padding-left: 5px;
   left: -110px;
   width: 1px;
   height: 100%;
-  background-color: red;
   font-size: 50px;
   color: black;
   transition: 0.5s;
@@ -105,11 +115,39 @@ header .tools .tools-container .tool i {
 header .tools .tools-container .tool i:before {
   padding: 0 5px;
 }
-header .tools .tools-container .tool:hover a {
-  padding-left: 70px;
+header .tools .tools-container .tool a {
+  transition: 0.5s;
 }
-header .tools .tools-container .tool:hover i {
+header .tools .tools-container .toolsOne .tool:hover a {
+  transform: translateX(70px);
+}
+header .tools .tools-container .toolsTwo .tool:hover a {
+  transform: translateX(-70px);
+}
+header .tools .tools-container .toolsOne .tool:hover i {
   left: 0;
+}
+header .tools .tools-container .toolsTwo .tool:hover i {
+  right: 50px;
+  background-color: lightgray;
+}
+
+header .tools .tools-container .toolsTwo .tool a {
+  text-align: right;
+
+  border-right: 5px solid rgb(86, 86, 86);
+  border-left: none;
+}
+header .tools .tools-container .toolsTwo .tool i {
+  position: absolute;
+  top: 0;
+  padding-right: 5px;
+  right: -110px;
+  width: 1px;
+  height: 100%;
+  font-size: 50px;
+  color: black;
+  transition: 0.5s;
 }
 .logo {
   text-decoration: none;
@@ -257,14 +295,14 @@ button.up.hidden {
   animation: fly-in linear 1s;
   animation-timeline: view(block);
   animation-range: contain -20% contain 40%;
-  animation-fill-mode: forwards; 
+  animation-fill-mode: forwards;
 }
 @keyframes fly-in {
   from {
     transform: translateX(-1000px);
   }
   to {
-    transform: translateX(0); 
+    transform: translateX(0);
   }
 }
 .card:hover {
@@ -582,4 +620,17 @@ button.up.hidden {
   to {
     right: -50px;
   }
+}
+@media (max-width: 991px) {
+  header .tools .tools-container.shown {
+    flex-direction: column;
+    align-items: flex-end;
+}
+header .tools .tools-container {
+    width: 300px;
+    left: -273px;
+}
+header .tools .tools-container .toolsOne, .toolsTwo {
+    width: 100%;
+}
 }
