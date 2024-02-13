@@ -51,9 +51,13 @@ header .tools > i:after {
   white-space: nowrap;
   opacity: 0;
 }
-header .tools i:hover:after {
+header .tools i.shown:after{
+  opacity: 0;
+}
+header .tools i:not(.shown):hover:after {
   opacity: 1;
 }
+
 header .tools .tools-container {
   position: absolute;
   width: 583px;
