@@ -1,0 +1,36 @@
+body {
+  font-family: "Courier New", Courier, monospace;
+  text-align: center;
+  position: relative;
+}
+canvas {
+  border: 7px solid blue;
+  border-radius: 10px;
+}
+.over {
+  background-color: #eee;
+  width: 300px;
+  aspect-ratio: 2/1;
+  padding: 50px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  display: none;
+}
+.over p {
+  font-size: 30px;
+  color: red;
+  font-weight: bold;
+  text-transform: uppercase;
+  box-shadow: inset 20px 20px 50px 3px rgba(0, 0, 0, 0.6);
+  padding: 5px;
+}
+.over button {
+  padding: 18px;
+  border: none;
+  background: red;
+  border-radius: 10px;
+  width: 60px;
+}

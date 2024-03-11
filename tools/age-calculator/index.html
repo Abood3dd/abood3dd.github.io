@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./assets/images/favicon-32x32.png"
+    />
+
+    <title>Frontend Mentor | Age calculator app</title>
+
+    <style>
+      .attribution {
+        font-size: 11px;
+        text-align: center;
+      }
+      .attribution a {
+        color: hsl(228, 45%, 44%);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="home">
+      <form action="">
+        <div class="days">
+          <label for="Day" class="STR">DAY</label>
+          <input type="number" name="Day" id="Day" placeholder="DD" />
+          <label for="Day" class="error"> </label>
+        </div>
+        <div class="months">
+          <label for="Month"class="STR">MONTH</label>
+          <input type="number" name="Month" id="Month" placeholder="MM" />
+          <label for="Month" class="error"> </label>
+        </div>
+        <div class="years">
+          <label for="Year"class="STR">YEAR</label>
+          <input type="number" name="Year" id="Year" placeholder="YYYY" />
+          <label for="Year" class="error"> </label>
+        </div>
+      </form>
+<div class="btn-container">
+
+  <button class="Btn">
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="46"
+      height="44"
+      viewBox="0 0 46 44"
+    >
+      <g fill="none" stroke="#FFF" stroke-width="2">
+        <path
+          d="M1 22.019C8.333 21.686 23 25.616 23 44M23 44V0M45 22.019C37.667 21.686 23 25.616 23 44"
+        />
+      </g>
+    </svg>
+  </button>
+</div>
+
+      <h1><span class="yearsNum">- - </span> years</h1>
+      <h1><span class="monthsNum">- - </span> months</h1>
+      <h1><span class="daysNum">- - </span> days</h1>
+    </div>
+    <div class="attribution">
+      Challenge by
+      <a href="https://www.frontendmentor.io?ref=challenge" target="_blank"
+        >Frontend Mentor</a
+      >. Coded by <a href="#">Abood3dd</a>.
+    </div>
+  </body>
+  <script src="main.js"></script>
+</html>

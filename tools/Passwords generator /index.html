@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <form action="">
+        <input
+          type="text"
+          class="pass"
+          placeholder="Password"
+          value="Password"
+          readonly
+        />
+        <div class="slider-container">
+          <input
+            type="range"
+            id="myRange"
+            min="1"
+            max="50"
+            value="2"
+            class="length"
+            oninput="updateValue()"
+          />
+          <span id="rangeValue" class="rangeValue">2</span>
+        </div>
+        <div class="settings">
+          <div class="first">
+            <input type="checkbox" class="capitalLetters" id="capitalLetters" />
+            <label for="capitalLetters"> ABC</label>
+          </div>
+          <div class="second">
+            <input type="checkbox" class="nums" id="nums" />
+            <label for="nums">123</label>
+          </div>
+          <div class="third">
+            <input type="checkbox" class="symbols" id="symbols" />
+            <label for="symbols">#$&</label>
+          </div>
+        </div>
+      </form>
+      <button type="submit" id="submit" class="submit">
+        Copy 
+      </button>
+    </div>
+  </body>
+  <script src="main.js"></script>
+  <script
+    src="https://kit.fontawesome.com/87fbe67857.js"
+    crossorigin="anonymous"
+  ></script>
+</html>
