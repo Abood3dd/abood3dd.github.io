@@ -1,0 +1,115 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+html {
+  font-size: 62.5%;
+}
+body {
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  justify-items: center;
+  background-color: black;
+}
+.container {
+  max-width: 50%;
+  height: 50vh;
+  margin: 0 auto;
+  background-color: white;
+  padding: 20px;
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+
+.container.main-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.container .timer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 15rem;
+  font-weight: bold;
+}
+.container .buttons {
+  display: flex;
+  justify-content: space-evenly;
+  margin-top: 20px;
+}
+.container .buttons button,
+.last button:not(.settings, .reset, .pause) {
+  width: 150px;
+  padding: 10px;
+  font-size: 1.7rem;
+  background: transparent;
+  outline: none;
+  border: 1px solid black;
+  border-radius: 20px;
+  transition: 0.3s;
+}
+.container .buttons button:hover,
+.container .last button:not(.settings, .reset, .pause):hover {
+  background-color: black;
+  color: white;
+}
+.container .last {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.container .last .reset,
+.settings,
+.pause {
+  font-size: 30px;
+  border: none;
+  background: white;
+  cursor: pointer;
+  color: black;
+}
+.container:not(.active) {
+  display: none;
+}
+.starting-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  .starting-buttons {
+    width: 100%;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    button {
+      width: 70px;
+      aspect-ratio: 1;
+      font-size: 35px;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+    }
+  }
+}
+.cycles {
+  position: absolute;
+  font-size: 2.5rem;
+  top: 100px;
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 7px;
+  }
+  .container {
+    max-width: 100%;
+    margin: 0;
+    height: 100vh;
+  }
+}

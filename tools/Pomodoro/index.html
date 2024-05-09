@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+    />
+    <meta
+      name="description"
+      content="Pomodoro Timer Web App to help manage your time effectively with focus sessions and breaks."
+    />
+    <meta
+      name="keywords"
+      content="Pomodoro, Time Management, Focus, Breaks, Productivity"
+    />
+    <meta name="author" content="Your Name or Organization" />
+    <meta property="og:title" content="Pomodoro Timer" />
+    <meta
+      property="og:description"
+      content="Enhance your productivity with structured focus sessions and breaks."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://abood3dd.github.io" />
+    <meta property="og:image" content="images/pomodoro.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Pomodoro Timer" />
+    <meta
+      name="twitter:description"
+      content="Manage your time better with structured focus sessions and breaks."
+    />
+    <meta name="twitter:image" content="images/pomodoro.png" />
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
+    <title>Pomodoro</title>
+  </head>
+  <body>
+    <div class="container main-container active">
+      <div class="buttons">
+        <button class="pomodoro">Pomodoro</button>
+        <button class="short_break">Short Break</button>
+        <button class="long_break">Long Break</button>
+      </div>
+      <div class="cycles">Cycles: 0</div>
+
+      <div class="timer">
+        <span class="time">25:00</span>
+      </div>
+      <div class="last">
+        <button class="start">Start</button>
+        <button class="reset">
+          <i class="fa-solid fa-arrow-rotate-right"></i>
+        </button>
+        <button class="pause"></button>
+        <button class="settings"><i class="fa-solid fa-gear"></i></button>
+      </div>
+    </div>
+
+    <!-- <div class="settings-container container">
+      <div class="settings">
+        <div class="close">
+          <i class="fa-solid fa-xmark"></i>
+        </div>
+        <div class="settings-header">
+          <h1>Settings</h1>
+          <i class="fa-solid fa-gear"></i>
+        </div>
+      </div>
+    </div>
+    <div class="starting-container container">
+      <div class="timer">
+        <span class="time">25:00</span>
+      </div>
+      <div class="starting-buttons">
+        <button class="reset">
+          <i class="fa-solid fa-arrow-rotate-right"></i>
+        </button>
+        <button class="play"><i class="fa-solid fa-play"></i></button>
+        <button class="pause"><i class="fa-solid fa-pause"></i></button>
+      </div>
+    </div> -->
+    <script src="main.js"></script>
+  </body>
+</html>
