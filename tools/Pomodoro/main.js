@@ -6,6 +6,13 @@ const settingsBTN = document.querySelector(".settings");
 const pomodoroBTN = document.querySelector(".pomodoro");
 const pauseBTN = document.querySelector(".pause");
 const resetBTN = document.querySelector(".reset");
+const closeBTN = document.querySelector(".close");
+const settings = document.querySelector(".settings");
+const color = document.querySelectorAll(".color");
+const duration = document.querySelectorAll(".duration");
+const pomoD = document.querySelector(".pomoD");
+const shortD = document.querySelector(".shortD");
+const longD = document.querySelector(".longD");
 //
 //visuales
 const cyclesCounter = document.querySelector(".cycles");
@@ -22,22 +29,22 @@ let isPaused = true,
   cycles = 0,
   clicked = false;
 //changeable by the user
-let pomoColor = "rgb(220, 20, 60)"; // Crimson for focus and energy
-let shortBreakColor = "rgb(135, 206, 235)"; // Sky Blue for calm short breaks
-let longBreakColor = "rgb(123, 104, 238)"; // Medium Slate Blue for relaxing long breaks
+let pomoColor = document.querySelector("#pomodoroColor").value; // Crimson for focus and energy
+let shortBreakColor = document.querySelector("#shortBreakColor").value; // Sky Blue for calm short breaks
+let longBreakColor = document.querySelector("#longBreakColor").value; // Medium Slate Blue for relaxing long breaks
 //time variables
-let cylceMin = 25, //changeable by the user
-  shortBreakMin = 5, //changeable  // //
-  longBreakMin = 15, //changeable // //
+let cylceMin = pomoD.value, //changeable by the user
+  shortBreakMin = shortD.value, //changeable  // //
+  longBreakMin = longD.value, //changeable // //
   timeValue = cylceMin * 60,
   seconds = 0,
-  minutes = 25;
+  minutes = cylceMin;
 //
 document.addEventListener("DOMContentLoaded", () => {
   updateUI();
   setInterval(update, 1000);
 });
-
+document.title = "Pomodoro Timer";
 StartBTN.addEventListener("click", () => {
   if (isPaused && !clicked) {
     isPaused = false;
@@ -79,6 +86,9 @@ function shortcutBTN(params) {
   updateUI();
 }
 function updateUI() {
+  cylceMin = pomoD.value; //changeable by the user
+  shortBreakMin = shortD.value; //changeable  // //
+  longBreakMin = longD.value;
   time.innerHTML = `${minutes.toString().padStart(2, "0")}:${seconds
     .toString()
     .padStart(2, "0")}`;
@@ -114,10 +124,20 @@ function updateUI() {
       );
     }
   }, 50);
+  color.forEach((item) => {
+    item.style.backgroundColor = item.value;
+  });
+  pomoColor = document.querySelector("#pomodoroColor").value; // Crimson for focus and energy
+  shortBreakColor = document.querySelector("#shortBreakColor").value; // Sky Blue for calm short breaks
+  longBreakColor = document.querySelector("#longBreakColor").value;
 }
 
 function update() {
   if (isPaused === false) {
+    cylceMin = pomoD.value; //changeable by the user
+    shortBreakMin = shortD.value; //changeable  // //
+    longBreakMin = longD.value;
+    updateUI();
     timeValue--;
     minutes = Math.floor(timeValue / 60);
     seconds = timeValue % 60;
@@ -187,3 +207,22 @@ function changetime() {
   minutes = Math.floor(timeValue / 60);
   seconds = timeValue % 60;
 }
+closeBTN.addEventListener("click", () => {
+  document.querySelector(".settings-container").classList.remove("active");
+  updateUI();
+});
+settings.addEventListener("click", () => {
+  document.querySelector(".settings-container").classList.toggle("active");
+  isPaused = true;
+  updateUI();
+});
+document.querySelectorAll("input").forEach((input) => {
+  input.addEventListener("focus", () => {
+    updateUI();
+    changetime();
+  });
+  input.addEventListener("blur", () => {
+    updateUI();
+    changetime();
+  });
+});

@@ -57,29 +57,50 @@
       </div>
     </div>
 
-    <!-- <div class="settings-container container">
-      <div class="settings">
+    <div class="settings-container container">
+      <div class="settings-header d-flex">
         <div class="close">
           <i class="fa-solid fa-xmark"></i>
         </div>
-        <div class="settings-header">
-          <h1>Settings</h1>
-          <i class="fa-solid fa-gear"></i>
+        <h1>Settings</h1>
+      </div>
+      <hr />
+      <div class="settings">
+        <!-- change the color of the three phases -->
+        <!-- change the time of the three phases -->
+        <div class="colors d-flex setting">
+          <h4>Colors</h4>
+          <div class="pomodoro">
+            <label for="pomodoroColor">Pomodoro Color:</label>
+            <input type="text" class="color PomoC" value="rgb(220, 20, 60)" id="pomodoroColor" />
+          </div>
+          <div class="shortBreakColor">
+            <label for="shortBreakColor">Short Break Color:</label>
+            <input type="text" class="color shortC" value="rgb(135, 206, 235)" id="shortBreakColor" />
+          </div>
+          <div class="longBreakColor">
+            <label for="longBreakColor">Long Break Color:</label>
+            <input type="text" class="color longC" value="rgb(123, 104, 238)" id="longBreakColor" />
+          </div>
         </div>
+        <div class="durations d-flex setting">
+          <h4>durations</h4>
+          <div class="pomodoro">
+            <label for="pomodoroduration">Pomodoro Duration:</label>
+            <input type="number" class="duration pomoD" min="1" value="25" id="pomodoroduration" />
+          </div>
+          <div class="shortBreak">
+            <label for="shortbreak">Short Break Duration:</label>
+            <input type="number" class="duration shortD" min="1" value="5" id="shortbreak" />
+          </div>
+          <div class="longBreak">
+            <label for="longbreak">Long Break Duration:</label>
+            <input type="number" class="duration longD" min="1" value="15" id="longbreak" />
+          </div>
+        </div>
+        
       </div>
     </div>
-    <div class="starting-container container">
-      <div class="timer">
-        <span class="time">25:00</span>
-      </div>
-      <div class="starting-buttons">
-        <button class="reset">
-          <i class="fa-solid fa-arrow-rotate-right"></i>
-        </button>
-        <button class="play"><i class="fa-solid fa-play"></i></button>
-        <button class="pause"><i class="fa-solid fa-pause"></i></button>
-      </div>
-    </div> -->
     <script src="main.js"></script>
   </body>
 </html>
