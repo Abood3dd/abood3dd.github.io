@@ -68,7 +68,11 @@ label::before {
   width: 70%; /* 70% converted to rem */
   margin: 15px; /* 15px converted to rem */
   margin-left: 40px; /* 40px converted to rem */
+ /* Light grey color for the slider track */
 }
+.length::-webkit-slider-runnable-track {
+  background-color: #ddd;
+  border-radius: 10px;}
 .submit {
   width: 100%; /* 100% converted to rem */
   padding: 10px; /* 10px converted to rem */
