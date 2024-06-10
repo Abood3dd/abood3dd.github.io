@@ -1,0 +1,318 @@
+:root {
+  --orange: hsl(26, 100%, 55%);
+  --transition-duration: 0.3s;
+  --Very-dark-blue: hsl(220, 13%, 13%);
+  --Dark-grayish-blue: hsl(219, 9%, 45%);
+  --Grayish-blue: hsl(220, 14%, 75%);
+  --Light-grayish-blue: hsl(223, 64%, 98%);
+  --White: hsl(0, 0%, 100%);
+  --Black: hsl(0, 0%, 0%);
+}
+
+*,
+*::after,
+*::before {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: "Kumbh Sans", sans-serif;
+  min-height: 100svh;
+  z-index: -5;
+  position: relative;
+}
+img {
+  max-width: 100%;
+}
+/* start nav */
+.nav .container {
+  border-bottom: 1px solid #cbcbcb;
+}
+.nav .burgermenu svg {
+  margin: 0.7rem 0.5rem 0;
+}
+.nav ul {
+  margin: 0;
+}
+
+.nav .menu.aside,
+.nav .menu.aside .overlay {
+  display: block !important;
+  position: fixed;
+  top: 0;
+  left: 0;
+  margin-left: 0 !important;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+}
+.nav .menu.aside {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.nav .menu.aside .overlay {
+  width: 20%;
+  transform: translateX(400%);
+  animation: fadein 0.5s;
+}
+.nav .menu.aside ul {
+  background-color: white;
+  flex-direction: column;
+  width: 80%;
+  height: 100vh;
+  padding: 1rem;
+  color: black !important;
+  font-weight: bold;
+  gap: 1rem !important;
+  animation: openWindow 0.5s;
+}
+.nav .menu.aside ul.close {
+  animation: closeWindow 0.5s;
+}
+
+.nav .menu.aside ul .close,
+.nav .menu.aside .overlay {
+  display: block !important;
+}
+.nav .menu.aside ul .close {
+  margin-bottom: 2.5rem;
+}
+.nav ul li {
+  cursor: pointer;
+  transition: var(--transition-duration);
+  position: relative;
+}
+.menu .menu-ul li::after {
+  content: "";
+  position: absolute;
+  display: inline-block;
+  height: 5px;
+  width: 100%;
+  background-color: var(--orange);
+  bottom: -55px;
+  left: 0;
+  transition: var(--transition-duration);
+  opacity: 0;
+}
+.menu.aside .menu-ul li::after {
+  display: none;
+}
+.nav ul li:hover::after {
+  opacity: 1;
+}
+.nav ul li:hover {
+  color: black;
+}
+.nav .nav-second {
+  gap: 2rem;
+  position: relative;
+}
+.nav .nav-second * {
+  cursor: pointer;
+}
+.nav .nav-second .cart .cart-menu {
+  position: absolute;
+  width: 85vw;
+  padding: 1rem 0;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  right: 0;
+  top: 50px;
+  font-weight: bold;
+  z-index: 999;
+  /* transform: translateX(12%); */
+}
+.nav .nav-second .cart .cart-menu .cart-items {
+  max-height: 300px;
+  min-height: 150px;
+  overflow: scroll;
+  padding: 0.5rem;
+}
+.nav .nav-second .cart .cart-menu .cart-items .item {
+  margin: 0 auto;
+  gap: 1rem;
+}
+.nav .nav-second .cart .cart-menu .cart-items .item .info {
+  gap: 0.5rem;
+}
+.nav .nav-second .cart .cart-menu .text {
+  width: 100%;
+  border-bottom: 1px solid #cbcbcb;
+}
+.nav .nav-second .cart .cart-menu h5 {
+  padding: 0.2rem 1rem;
+  font-size: 1rem;
+}
+
+.cart-icon .cart-icon-num {
+  font-size: 0.8rem;
+  padding: 0 0.4rem;
+  background-color: var(--orange);
+  position: absolute;
+  top: -8px;
+  left: 13px;
+  border-radius: 20px;
+  display: none;
+}
+
+.cart-icon svg {
+  transition: var(--transition-duration);
+}
+.cart-icon:hover svg,
+.cart-icon:focus svg {
+  transform: scale(1.15);
+}
+.nav .nav-second .cart .cart-menu.visible {
+  display: block !important;
+}
+.nav .nav-second .profile .pfp img {
+  transition: var(--transition-duration);
+}
+.nav .nav-second .profile .pfp:hover img {
+  border: 2px solid var(--orange);
+  border-radius: 50%;
+}
+/* end nav */
+/* start main sec */
+.product-imgs-container img,
+.product-imgs-container .product-img {
+  border-radius: 0.75rem;
+}
+
+.product-imgs-container img {
+  transition: var(--transition-duration);
+}
+.product-imgs-container .product-img:has(img:hover, img.selected) {
+  border: 3px solid var(--orange);
+}
+.product-imgs-container .product-more-imgs img:hover,
+.product-imgs-container .product-more-imgs img.selected {
+  opacity: 0.5;
+}
+.product-imgs-container-small {
+  z-index: -1;
+}
+.left,
+.right {
+  top: 50% !important;
+  background: var(--White);
+  border-radius: 50%;
+  padding: 0.5rem 0.85rem;
+}
+.left {
+  left: 10px;
+}
+.right {
+  right: 10px;
+}
+section.main .container {
+  padding: 0 !important;
+}
+section.main .container {
+  gap: 5rem;
+}
+section.main .container .product-info {
+  padding: 0 2rem;
+}
+section.main .container .product-info .price-after > span:nth-child(1) {
+  font-size: 1.5rem;
+}
+section.main .container .product-info .amount {
+  background: #80808045;
+  border-radius: 1rem;
+  width: 100%;
+}
+section.main .container .product-info .addToCart {
+  width: 100%;
+}
+
+.product-info .addToCart button:hover {
+  background-color: hsl(26, 100%, 41%);
+  transform: scale(1.1);
+}
+.product-info .addToCart button,
+.checkout button {
+  border-radius: 1rem;
+  border: none;
+  background-color: var(--orange);
+  transition: var(--transition-duration);
+}
+section.main {
+  z-index: -3;
+  position: relative;
+}
+.checkout button {
+  width: 100%;
+  height: 3rem;
+}
+.name-Price {
+  font-size: 15px;
+}
+.delete {
+  transition: var(--transition-duration);
+}
+.delete:hover {
+  color: red;
+  transform: scale(1.05);
+}
+@media (min-width: 768px) {
+  section.main {
+    padding: 4rem 7rem;
+    display: flex;
+    justify-content: center;
+  }
+  section.main .container {
+    width: 90%;
+  }
+  section.main .container .product-info {
+    padding: 2rem;
+  }
+  .nav .nav-second .cart .cart-menu {
+    width: 300px;
+  }
+  /* .nav .nav-second .cart .cart-menu {
+    transform: translateX(0);
+  } */
+}
+@media (min-width: 1024px) {
+  section.main .container .product-info .amount {
+    width: 33%;
+  }
+  section.main .container .product-info .addToCart {
+    width: 65%;
+  }
+}
+/*  */
+.cart .cart-items .info img {
+  width: 50px;
+  border-radius: 0.5rem;
+}
+.main-img {
+  z-index: -1;
+  position: relative;
+}
+/* animations */
+@keyframes openWindow {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+@keyframes closeWindow {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+@keyframes fadein {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
