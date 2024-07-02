@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./assets/images/favicon-32x32.png"
+    />
+
+    <title>Frontend Mentor | Multi-step form</title>
+    <link rel="stylesheet" href="assets/css/all.min.css" />
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+    <style>
+      .attribution {
+        display: none;
+        font-size: 11px;
+        text-align: center;
+      }
+      .attribution a {
+        color: hsl(228, 45%, 44%);
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      class="loginForm p-3 container rounded-5 d-flex flex-column position-relative flex-md-row"
+    >
+      <div
+        class="steps-numbers position-relative d-flex flex-row flex-md-column gap-4 pt-5 p-4"
+      >
+        <div class="background">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="274"
+            height="568"
+            fill="none"
+            viewBox="0 0 274 568"
+          >
+            <rect width="274" height="568" fill="#483EFF" rx="10" />
+            <mask
+              id="a"
+              width="274"
+              height="568"
+              x="0"
+              y="0"
+              maskUnits="userSpaceOnUse"
+              style="mask-type: alpha"
+            >
+              <rect width="274" height="568" fill="#fff" rx="10" />
+            </mask>
+            <g mask="url(#a)">
+              <path
+                fill="#6259FF"
+                fill-rule="evenodd"
+                d="M-34.692 543.101C3.247 632.538 168.767 685.017 211.96 612.52c43.194-72.497-66.099-85.653-104.735-160.569-38.635-74.916-68.657-121.674-124.482-104.607-55.824 17.068-55.375 106.32-17.436 195.757Z"
+                clip-rule="evenodd"
+              />
+              <path
+                fill="#F9818E"
+                fill-rule="evenodd"
+                d="M233.095 601.153c60.679-28.278 92.839-143.526 41.875-171.528-50.965-28.003-57.397 47.579-108.059 75.987-50.662 28.408-82.14 50.207-69.044 88.241 13.096 38.034 74.549 35.578 135.228 7.3Z"
+                clip-rule="evenodd"
+              />
+              <path
+                stroke="#fff"
+                stroke-linecap="round"
+                stroke-linejoin="bevel"
+                stroke-width="5"
+                d="m165.305 469.097 10.607-10.806M209.461 474.581l-12.506-10.503M187.56 488.991l-6.908 14.798"
+              />
+              <path
+                fill="#FFAF7E"
+                d="M.305 546.891c37.003 0 67-29.997 67-67s-29.997-67-67-67-67 29.997-67 67 29.997 67 67 67Z"
+              />
+            </g>
+          </svg>
+        </div>
+        <div class="step-num d-flex gap-3">
+          <div class="step--num-container rounded-circle border-white border">
+            <span>1</span>
+          </div>
+
+          <div class="step-num--info d-none d-md-block">
+            <span class="text-uppercase text-white-50">step 1</span>
+            <p class="text-uppercase fw-bold text-white">your info</p>
+          </div>
+        </div>
+        <div class="step-num d-flex gap-3">
+          <div class="step--num-container rounded-circle border-white border">
+            <span>2</span>
+          </div>
+
+          <div class="step-num--info d-none d-md-block">
+            <span class="text-uppercase text-white-50">step 2</span>
+            <p class="text-uppercase fw-bold text-white">select plan</p>
+          </div>
+        </div>
+        <div class="step-num active d-flex gap-3">
+          <div class="step--num-container rounded-circle border-white border">
+            <span>3</span>
+          </div>
+
+          <div class="step-num--info d-none d-md-block">
+            <span class="text-uppercase text-white-50">step 3</span>
+            <p class="text-uppercase fw-bold text-white">add-ons</p>
+          </div>
+        </div>
+        <div class="step-num d-flex gap-3">
+          <div class="step--num-container rounded-circle border-white border">
+            <span>4</span>
+          </div>
+
+          <div class="step-num--info d-none d-md-block">
+            <span class="text-uppercase text-white-50">step 4</span>
+            <p class="text-uppercase fw-bold text-white">summary</p>
+          </div>
+        </div>
+      </div>
+      <div class="steps-buttons-container bg-white">
+        <div class="steps px-0">
+          <div class="step-one step p-4">
+            <div class="step-info">
+              <h1 class="fw-bold">Personal info</h1>
+              <p class="text-black-50">
+                Please provide your name, email address, and phone number.
+              </p>
+            </div>
+
+            <div class="steps-form">
+              <form method="post">
+                <div class="username">
+                  <label for="name">Name</label>
+                  <input
+                    type="text"
+                    id="name"
+                    placeholder="e.g.Stephen Kings"
+                    class="mb-4 mt-2 rounded-3 userData"
+                  />
+                </div>
+                <div class="email">
+                  <label for="email">Email Address</label>
+                  <input
+                    type="email"
+                    id="email"
+                    placeholder="e.g.stephenking@lorem.com"
+                    class="mb-4 mt-2 rounded-3 userData"
+                  />
+                </div>
+                <div class="phone">
+                  <label for="phone">Name</label>
+                  <input
+                    type="tel"
+                    id="phone"
+                    placeholder="e.g +1 234 567 890"
+                    class="mb-4 mt-2 rounded-3 userData"
+                  />
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="step-two step h-75 justify-content-between flex-column">
+            <div class="stepTwo-info step-info">
+              <h2 class="fw-bold">Select your plan</h2>
+              <p class="text-black-50">
+                You have the option of monthly or yearly billing.
+              </p>
+            </div>
+            <div class="plans gap-2 d-grid">
+              <label for="planArcade">
+                <div
+                  class="plan d-flex flex-row gap-2 flex-md-column justify-content-md-between justify-content-start p-3"
+                  data-monthly="9"
+                  data-yearly="90"
+                >
+                  <input
+                    type="radio"
+                    name="plan"
+                    class="d-none"
+                    id="planArcade"
+                  />
+                  <div class="icon">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="40"
+                      height="40"
+                      viewBox="0 0 40 40"
+                    >
+                      <g fill="none" fill-rule="evenodd">
+                        <circle cx="20" cy="20" r="20" fill="#FFAF7E" />
+                        <path
+                          fill="#FFF"
+                          fill-rule="nonzero"
+                          d="M24.995 18.005h-3.998v5.998h-2v-5.998H15a1 1 0 0 0-1 1V29a1 1 0 0 0 1 1h9.995a1 1 0 0 0 1-1v-9.995a1 1 0 0 0-1-1Zm-5.997 8.996h-2v-1.999h2v2Zm2-11.175a2.999 2.999 0 1 0-2 0v2.18h2v-2.18Z"
+                        />
+                      </g>
+                    </svg>
+                  </div>
+
+                  <div class="plan-info">
+                    <h5>Arcade</h5>
+                    <span class="text-black-50 planPrice">$9/mo</span>
+                  </div>
+                </div>
+              </label>
+              <label for="planAdvanced">
+                <div
+                  class="plan d-flex flex-row gap-2 flex-md-column justify-content-md-between justify-content-start p-3"
+                  data-monthly="12"
+                  data-yearly="120"
+                >
+                  <input
+                    type="radio"
+                    name="plan"
+                    class="d-none"
+                    id="planAdvanced"
+                  />
+                  <div class="icon">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="40"
+                      height="40"
+                      viewBox="0 0 40 40"
+                    >
+                      <g fill="none" fill-rule="evenodd">
+                        <circle cx="20" cy="20" r="20" fill="#F9818E" />
+                        <path
+                          fill="#FFF"
+                          fill-rule="nonzero"
+                          d="M25.057 15H14.944C12.212 15 10 17.03 10 19.885c0 2.857 2.212 4.936 4.944 4.936h10.113c2.733 0 4.943-2.08 4.943-4.936S27.79 15 25.057 15ZM17.5 20.388c0 .12-.108.237-.234.237h-1.552v1.569c0 .126-.138.217-.259.217H14.5c-.118 0-.213-.086-.213-.203v-1.583h-1.569c-.126 0-.217-.139-.217-.26v-.956c0-.117.086-.213.202-.213h1.584v-1.554c0-.125.082-.231.203-.231h.989c.12 0 .236.108.236.234v1.551h1.555c.125 0 .231.083.231.204v.988Zm5.347.393a.862.862 0 0 1-.869-.855c0-.472.39-.856.869-.856.481 0 .87.384.87.856 0 .471-.389.855-.87.855Zm1.9 1.866a.86.86 0 0 1-.87-.852.86.86 0 0 1 .87-.855c.48 0 .87.38.87.855a.86.86 0 0 1-.87.852Zm0-3.736a.862.862 0 0 1-.87-.854c0-.472.39-.856.87-.856s.87.384.87.856a.862.862 0 0 1-.87.854Zm1.899 1.87a.862.862 0 0 1-.868-.855c0-.472.389-.856.868-.856s.868.384.868.856a.862.862 0 0 1-.868.855Z"
+                        />
+                      </g>
+                    </svg>
+                  </div>
+
+                  <div class="plan-info">
+                    <h5>Advanced</h5>
+                    <span class="text-black-50 planPrice">$12/mo</span>
+                  </div>
+                </div>
+              </label>
+              <label for="planPro">
+                <div
+                  class="plan d-flex flex-row gap-2 flex-md-column justify-content-md-between justify-content-start p-3"
+                  data-monthly="15"
+                  data-yearly="150"
+                >
+                  <input type="radio" name="plan" class="d-none" id="planPro" />
+                  <div class="icon">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="40"
+                      height="40"
+                      viewBox="0 0 40 40"
+                    >
+                      <g fill="none" fill-rule="evenodd">
+                        <circle cx="20" cy="20" r="20" fill="#483EFF" />
+                        <path
+                          fill="#FFF"
+                          fill-rule="nonzero"
+                          d="M26.666 13H13.334A3.333 3.333 0 0 0 10 16.333v7.193a3.447 3.447 0 0 0 2.14 3.24c1.238.5 2.656.182 3.56-.8L18.52 23h2.96l2.82 2.966a3.2 3.2 0 0 0 3.56.8 3.447 3.447 0 0 0 2.14-3.24v-7.193A3.333 3.333 0 0 0 26.666 13Zm-9.333 6H16v1.333a.667.667 0 0 1-1.333 0V19h-1.333a.667.667 0 0 1 0-1.334h1.333v-1.333a.667.667 0 1 1 1.333 0v1.333h1.333a.667.667 0 1 1 0 1.334Zm7.333 2a2.667 2.667 0 1 1 0-5.333 2.667 2.667 0 0 1 0 5.333ZM26 18.333a1.333 1.333 0 1 1-2.667 0 1.333 1.333 0 0 1 2.667 0Z"
+                        />
+                      </g>
+                    </svg>
+                  </div>
+
+                  <div class="plan-info">
+                    <h5>Pro</h5>
+                    <span class="text-black-50 planPrice">$15/mo</span>
+                  </div>
+                </div>
+              </label>
+            </div>
+            <div
+              class="toggle d-flex justify-content-center align-items-center mt-3 gap-3 p-2"
+            >
+              <span class="monthly planType text-black-50 chosen">Monthly</span>
+              <div class="toggle-container">
+                <input
+                  type="checkbox"
+                  class="d-none YearlyOrMonthly"
+                  id="check"
+                />
+                <label for="check" class="button"></label>
+              </div>
+              <span class="yearly planType text-black-50">Yearly</span>
+            </div>
+          </div>
+          <!-- step three -->
+          <div class="step-three step p-4 flex-column">
+            <div class="step-info">
+              <h1 class="fw-bold">Pick add-ons</h1>
+              <p class="text-black-50">
+                Add-ons help enhance your gaming experience.
+              </p>
+            </div>
+            <div class="step-three--form">
+              <form method="post" class="d-flex gap-3 flex-column">
+                <label for="online service" class="w-100">
+                  <div
+                    class="onlineService addOn d-flex justify-content-between align-items-center gap-3"
+                    data-monthly="1"
+                    data-yearly="10"
+                  >
+                    <div
+                      class="Stepthree-form--right align-items-center d-flex gap-3"
+                    >
+                      <input
+                        type="checkbox"
+                        id="online service"
+                        class="d-none checkbox"
+                        data-price="1"
+                      />
+                      <label class="position-relative p-2" for="online service">
+                        <div class="mark"></div
+                      ></label>
+                      <div class="addOn-info">
+                        <h6 class="fw-bold mb-0">Online service</h6>
+                        <p class="text-black-50">Access to multiplayer games</p>
+                      </div>
+                    </div>
+                    <div class="Stepthree-form--left">
+                      <div>
+                        <span class="addOn-price">+$1/mo</span>
+                      </div>
+                    </div>
+                  </div> </label
+                ><label for="Larger storage" class="w-100">
+                  <div
+                    class="LargerStorage addOn d-flex justify-content-between align-items-center gap-3"
+                    data-monthly="2"
+                    data-yearly="20"
+                  >
+                    <div
+                      class="Stepthree-form--right align-items-center d-flex gap-3"
+                    >
+                      <input
+                        type="checkbox"
+                        id="Larger storage"
+                        class="d-none checkbox"
+                        data-price="2"
+                      />
+                      <label class="position-relative p-2" for="Larger storage">
+                        <div class="mark"></div
+                      ></label>
+                      <div class="addOn-info">
+                        <h6 class="fw-bold mb-0">Larger storage</h6>
+                        <p class="text-black-50">Extra 1TB of cloud save</p>
+                      </div>
+                    </div>
+                    <div class="Stepthree-form--left">
+                      <div>
+                        <span class="addOn-price">+$2/mo</span>
+                      </div>
+                    </div>
+                  </div> </label
+                ><label for="Customizable Profile" class="w-100">
+                  <div
+                    class="CustomizableProfile addOn d-flex justify-content-between align-items-center gap-3"
+                    data-monthly="2"
+                    data-yearly="20"
+                  >
+                    <div
+                      class="Stepthree-form--right align-items-center d-flex gap-3"
+                    >
+                      <input
+                        type="checkbox"
+                        id="Customizable Profile"
+                        class="d-none checkbox"
+                        data-price="2"
+                      />
+                      <label
+                        class="position-relative p-2"
+                        for="Customizable Profile"
+                      >
+                        <div class="mark"></div
+                      ></label>
+                      <div class="addOn-info">
+                        <h6 class="fw-bold mb-0">Customizable Profile</h6>
+                        <p class="text-black-50">
+                          Custom theme on your profile
+                        </p>
+                      </div>
+                    </div>
+                    <div class="Stepthree-form--left">
+                      <div>
+                        <span class="addOn-price">+$2/mo</span>
+                      </div>
+                    </div>
+                  </div>
+                </label>
+              </form>
+            </div>
+          </div>
+          <!-- step four -->
+          <div class="step-four step p-4 flex-column">
+            <div class="step-info">
+              <h1 class="fw-bold">Finishing up</h1>
+              <p class="text-black-50">
+                Double-check everything looks OK before confirming
+              </p>
+            </div>
+            <div class="summary-container d-flex flex-column gap-2">
+              <div class="summary-info d-flex flex-column p-3 rounded-2">
+                <div
+                  class="summary-info--plan d-flex mb-1 justify-content-between"
+                >
+                  <p class="fw-bold"></p>
+                  <span class="fw-bold"></span>
+                </div>
+                <hr />
+                <div
+                  class="summary-info--addOns mt-2 d-flex gap-3 flex-column"
+                ></div>
+              </div>
+              <div
+                class="summary-totalPrice p-3 d-flex justify-content-between"
+              >
+                <p></p>
+                <span class="fw-bold"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="buttons w-100 position-absolute d-flex bg-white justify-content-between p-3"
+        >
+          <div class="d-flex">
+            <button class="text-black-50 Back bg-white GoBack">Go Back</button>
+          </div>
+
+          <button class="nextStep btn btn-primary">Next Step</button>
+        </div>
+      </div>
+    </div>
+  </body>
+
+  <script src="assets/js/all.min.js"></script>
+  <script src="assets/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/main.js"></script>
+</html>

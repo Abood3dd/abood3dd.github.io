@@ -1,0 +1,313 @@
+:root {
+  /* Primary Colors */
+  --marine-blue: hsl(213, 96%, 18%);
+  --purplish-blue: hsl(243, 100%, 62%);
+  --pastel-blue: hsl(228, 100%, 84%);
+  --light-blue: hsl(206, 94%, 87%);
+  --strawberry-red: hsl(354, 84%, 57%);
+  /* Neutral Colors */
+  --cool-gray: hsl(231, 11%, 63%);
+  --light-gray: hsl(229, 24%, 87%);
+  --magnolia: hsl(217, 100%, 97%);
+  --alabaster: hsl(231, 100%, 99%);
+  --white: hsl(0, 0%, 100%);
+}
+*,
+*::after,
+*::before {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  line-height: 1.2;
+}
+body {
+  font-family: "Ubuntu", sans-serif;
+  min-height: 100svh;
+  background-color: #eff5fe;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.steps-numbers {
+  width: 100%;
+}
+.steps {
+  background: white;
+  border-radius: 1rem;
+}
+.step-info {
+  margin-bottom: 2rem;
+}
+p {
+  margin: 0;
+}
+.background {
+  overflow: hidden;
+  display: flex;
+  width: fit-content;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+.step-num {
+  z-index: 1;
+}
+.loginForm {
+  height: 100svh;
+  width: 100%;
+  max-width: 1440px;
+}
+.step {
+  display: none;
+}
+.step.active {
+  display: flex;
+}
+.step.active,
+.step.step-one.active {
+  height: 90%;
+}
+.step.step-one.active {
+  display: block;
+}
+.step--num-container {
+  width: 35px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+.step-num.active .step--num-container {
+  color: black;
+  background-color: var(--light-blue);
+  border: none !important;
+}
+h5 {
+  margin-bottom: 0;
+}
+.step-info span {
+  font-size: 0.9rem;
+}
+
+.userData {
+  border: 1px solid var(--cool-gray);
+  padding: 0.7rem;
+}
+form > div {
+  display: flex;
+  flex-direction: column;
+}
+button.nextStep {
+  background-color: var(--marine-blue);
+  padding: 0.7rem 1.2rem;
+}
+.buttons {
+  bottom: 0;
+  right: 0;
+  z-index: 2;
+}
+.background svg {
+  display: none;
+}
+.Back {
+  border: none;
+}
+.background::after {
+  content: "";
+  background-color: #f3ae7d;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  position: absolute;
+  bottom: -41px;
+  left: -30px;
+}
+.background::before {
+  content: "";
+  background-color: #ed808d;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  position: absolute;
+  bottom: -61px;
+  right: -101px;
+}
+.planType.chosen {
+  color: rgba(0, 0, 0, 1) !important;
+  font-weight: bold;
+}
+/* step two */
+.free {
+  font-size: 14px;
+}
+.button {
+  background-color: var(--marine-blue);
+
+  width: 50px;
+  height: 25px;
+  border-radius: 200px;
+  cursor: pointer;
+  position: relative;
+  transition: 0.2s;
+}
+.button::before {
+  position: absolute;
+  content: "";
+  background-color: #fff;
+  width: 15px;
+  height: 15px;
+  border-radius: 200px;
+  margin: 5px;
+  transition: 0.2s;
+}
+
+input:checked + .button::before {
+  transform: translateX(25px);
+}
+.plan {
+  border: 3px solid var(--light-gray);
+  padding-right: 2rem !important;
+  border-radius: 1rem;
+  height: 100%;
+}
+
+.plan:has(input:checked) {
+  border-color: var(--purplish-blue);
+  background-color: var(--light-blue);
+}
+.plans {
+  flex-grow: 0.5;
+  grid-template-columns: repeat(3, 1fr);
+}
+.toggle {
+  background: var(--light-gray);
+  border-radius: 10px;
+}
+/* step three */
+.addOn {
+  padding: 1em;
+  border: 1px solid var(--light-gray);
+  border-radius: 0.5rem;
+}
+.addOn:has(input:checked) {
+  border: 1px solid var(--purplish-blue);
+}
+.addOn-price {
+  color: var(--purplish-blue);
+}
+input.checkbox + label {
+  width: 20px;
+  height: 20px;
+  border: 1px solid var(--light-gray);
+  transition: 0.3s;
+  border-radius: 5px;
+}
+input.checkbox:checked + label {
+  border-color: var(--marine-blue);
+  background-color: var(--purplish-blue);
+  border: none;
+}
+input.checkbox + label .mark {
+  transition: 0.3s;
+}
+input.checkbox:checked + label .mark {
+  clip-path: polygon(
+    17% 54%,
+    28% 43%,
+    38% 54%,
+    70% 22%,
+    81% 33%,
+    38% 75%,
+    17% 54%
+  );
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+/* step four */
+.summary-info {
+  background-color: var(--light-gray);
+}
+.summary-totalPrice span {
+  color: #4c4cfc;
+}
+
+/* media queries */
+@media (max-width: 767px) {
+  .background {
+    background-color: #4c4cfc;
+    width: 100vw;
+    height: 172px;
+  }
+  .loginForm {
+    padding: 0 !important;
+  }
+  .steps-numbers {
+    justify-content: center;
+  }
+  .steps {
+    position: absolute;
+    top: 48%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 700px;
+    box-shadow: 10px -20px 50px 50px rgba(0, 0, 0, 0.1);
+  }
+  .plans {
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(3, 1fr);
+  }
+  .step-two {
+    padding: 1rem;
+  }
+  .addOn {
+    font-size: 12px;
+  }
+  .steps-numbers {
+    padding-top: 1.4rem !important;
+    gap: 1rem !important;
+  }
+  .step-info {
+    margin-bottom: 0.5rem;
+  }
+}
+@media (min-width: 768px) {
+  .loginForm {
+    height: 650px;
+    max-height: 100vh;
+    width: fit-content;
+    border-radius: 1rem;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  .steps-numbers {
+    width: 280px;
+  }
+  .steps-buttons-container {
+    padding: 2rem 4rem 0 !important;
+    z-index: 1;
+    border-radius: 1rem;
+  }
+  .steps {
+    height: calc(100% - 100px);
+    width: 28rem;
+  }
+  .background svg {
+    display: block;
+  }
+  .buttons {
+    width: 60% !important;
+  }
+  .background::after,
+  .background::before {
+    display: none;
+  }
+  .free {
+    margin: 0.5rem 0;
+  }
+}
