@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Displays site properly based on user's device -->
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./images/favicon-32x32.png"
+    />
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <!-- Title -->
+    <title>Frontend Mentor | Todo App</title>
+    <!-- Feel free to remove these styles or customize in your own stylesheet -->
+    <style>
+      .attribution {
+        font-size: 11px;
+        text-align: center;
+      }
+      .attribution a {
+        color: hsl(228, 45%, 44%);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="background"></div>
+    <section class="container">
+      <header class="header">
+        <h2>TO DO</h2>
+        <div class="theme">
+          <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26">
+            <path
+              fill="#FFF"
+              fill-rule="evenodd"
+              d="M13 21a1 1 0 011 1v3a1 1 0 11-2 0v-3a1 1 0 011-1zm-5.657-2.343a1 1 0 010 1.414l-2.121 2.121a1 1 0 01-1.414-1.414l2.12-2.121a1 1 0 011.415 0zm12.728 0l2.121 2.121a1 1 0 01-1.414 1.414l-2.121-2.12a1 1 0 011.414-1.415zM13 8a5 5 0 110 10 5 5 0 010-10zm12 4a1 1 0 110 2h-3a1 1 0 110-2h3zM4 12a1 1 0 110 2H1a1 1 0 110-2h3zm18.192-8.192a1 1 0 010 1.414l-2.12 2.121a1 1 0 01-1.415-1.414l2.121-2.121a1 1 0 011.414 0zm-16.97 0l2.121 2.12A1 1 0 015.93 7.344L3.808 5.222a1 1 0 011.414-1.414zM13 0a1 1 0 011 1v3a1 1 0 11-2 0V1a1 1 0 011-1z"
+            />
+          </svg>
+        </div>
+      </header>
+      <div class="container-content">
+        <div class="input">
+          <div class="task">
+            <div class="check">
+              <button class="inputBTN"></button>
+            </div>
+
+            <input
+              type="text"
+              name="task-content"
+              for="task-content"
+              class="task-content task_text"
+              placeholder="Create a new todo..."
+            />
+          </div>
+        </div>
+        <div class="tasks">
+          <div class="tasks_container"></div>
+          <div class="tasks_info">
+            <div class="items_left"><span>0</span> items left</div>
+            <div class="clearCompleted">Clear Completed</div>
+          </div>
+        </div>
+        <div class="filters">
+          <label>
+            <input type="radio" name="filter" id="All" checked />
+            <span>All</span> </label
+          ><label>
+            <input type="radio" name="filter" id="Active" />
+            <span>Active</span> </label
+          ><label>
+            <input type="radio" name="filter" id="Completed" />
+            <span>Completed</span>
+          </label>
+        </div>
+      </div>
+    </section>
+    <footer>
+      <div class="hint">Drag and drop to reorder list</div>
+    </footer>
+    <script src="assets/js/index.js"></script>
+    <script src="dragAndDrop.js"></script>
+  </body>
+</html>
