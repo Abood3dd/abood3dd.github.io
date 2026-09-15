@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Word Study</title>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.13.0/firebase-database-compat.js"></script>
+<style>
+  :root{
+    --paper: #F5F3EC;
+    --card: #FFFFFF;
+    --line: #E3DFD1;
+    --ink: #202A3C;
+    --ink-soft: #5A6274;
+    --teal: #2F6F6D;
+    --teal-dark: #1F4E4C;
+    --moss: #5B7B4F;
+    --moss-bg: #EAF0E4;
+    --plum: #7A3B4C;
+    --plum-bg: #F3E6E9;
+  }
+  *{ box-sizing: border-box; }
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 28px 20px 60px;
+  }
+  header{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    margin-bottom: 22px;
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 14px;
+  }
+  header h1{
+    font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
+    font-size: 22px;
+    font-weight: 600;
+    margin: 0;
+    letter-spacing: 0.2px;
+  }
+  header .sync-note{
+    font-size: 12px;
+    color: var(--ink-soft);
+  }
+  .sync-panel{
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+  }
+  .sync-row{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    flex-wrap:wrap;
+    margin-bottom: 8px;
+  }
+  .sync-row:last-of-type{ margin-bottom: 6px; }
+  .sync-label{
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+  .sync-code{
+    font-family: ui-monospace, "SF Mono", Consolas, monospace;
+    font-size: 13px;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    padding: 4px 9px;
+    letter-spacing: 0.3px;
+  }
+  #linkCodeInput{
+    flex:1;
+    min-width: 180px;
+    font-family: inherit;
+    font-size: 13px;
+    padding: 7px 10px;
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    background: var(--paper);
+    color: var(--ink);
+  }
+  .source-toggle{
+    display:flex;
+    align-items:flex-start;
+    gap:8px;
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin-bottom: 20px;
+    cursor:pointer;
+    user-select:none;
+  }
+  .source-toggle input{ margin-top: 2px; }
+  .word-status{
+    font-size: 13px;
+    color: var(--ink-soft);
+    font-style: italic;
+    margin: -8px 0 12px 2px;
+    min-height: 16px;
+  }
+  .layout{
+    display:grid;
+    grid-template-columns: 1.35fr 1fr;
+    gap: 22px;
+    align-items:start;
+  }
+  @media (max-width: 800px){
+    .layout{ grid-template-columns: 1fr; }
+  }
+
+  /* --- Word card --- */
+  .card{
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 30px 28px;
+    position: relative;
+  }
+  .card::before{
+    content:"";
+    position:absolute;
+    left:0; top:22px; bottom:22px;
+    width:3px;
+    background: var(--teal);
+    border-radius: 0 2px 2px 0;
+  }
+  .pos{
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 14px;
+    margin: 0 0 4px 2px;
+  }
+  .word{
+    font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
+    font-size: 40px;
+    line-height: 1.1;
+    margin: 0 0 18px 2px;
+    word-break: break-word;
+  }
+  .meaning{
+    font-size: 17px;
+    line-height: 1.55;
+    margin: 0 0 16px 2px;
+  }
+  .example{
+    font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
+    font-style: italic;
+    color: var(--ink-soft);
+    font-size: 16px;
+    line-height: 1.6;
+    margin: 0 2px;
+  }
+  .example::before{ content:"“"; }
+  .example::after{ content:"”"; }
+
+  .controls{
+    margin-top: 26px;
+    padding-top: 20px;
+    border-top: 1px solid var(--line);
+  }
+  .duration-row{
+    display:flex;
+    gap:10px;
+    align-items:center;
+    flex-wrap:wrap;
+  }
+  .duration-label{
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin-right: 4px;
+  }
+  button{
+    font-family: inherit;
+    cursor:pointer;
+    border-radius: 3px;
+  }
+  .dur-btn{
+    border: 1px solid var(--line);
+    background: var(--paper);
+    color: var(--ink);
+    padding: 8px 16px;
+    font-size: 14px;
+  }
+  .dur-btn.active{
+    background: var(--teal);
+    border-color: var(--teal);
+    color: #fff;
+  }
+  .primary-btn{
+    border: none;
+    background: var(--teal);
+    color: #fff;
+    padding: 11px 22px;
+    font-size: 15px;
+    margin-top: 16px;
+  }
+  .primary-btn:hover{ background: var(--teal-dark); }
+  .primary-btn:disabled{ background:#B9C4C3; cursor:default; }
+  .ghost-btn{
+    border: 1px solid var(--line);
+    background: transparent;
+    color: var(--ink-soft);
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+
+  /* --- timer running state --- */
+  .timer-run{
+    display:none;
+    align-items:center;
+    gap:16px;
+    margin-top: 16px;
+  }
+  .timer-run.active{ display:flex; }
+  .timer-face{
+    font-family: Georgia, serif;
+    font-size: 30px;
+    min-width: 78px;
+  }
+  .bar-track{
+    flex:1;
+    height: 6px;
+    background: var(--line);
+    border-radius: 3px;
+    overflow:hidden;
+  }
+  .bar-fill{
+    height:100%;
+    background: var(--teal);
+    width:100%;
+    transition: width 1s linear;
+  }
+
+  .review{
+    display:none;
+    margin-top: 18px;
+  }
+  .review.active{ display:block; }
+  .review p{
+    font-size: 15px;
+    color: var(--ink-soft);
+    margin: 0 0 12px 0;
+  }
+  .review-btns{ display:flex; gap:10px; flex-wrap:wrap; }
+  .diff-btn{
+    flex:1;
+    min-width: 120px;
+    border:none;
+    padding: 13px 10px;
+    font-size: 15px;
+    font-weight:600;
+  }
+  .diff-btn.easy{ background: var(--moss-bg); color: var(--moss); }
+  .diff-btn.hard{ background: var(--plum-bg); color: var(--plum); }
+  .diff-btn:hover{ opacity:0.85; }
+
+  /* --- history panel --- */
+  .panel-title{
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin: 0 0 10px 2px;
+  }
+  .stats{
+    display:flex;
+    gap:10px;
+    margin-bottom: 16px;
+  }
+  .stat{
+    flex:1;
+    background: var(--card);
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding: 12px 10px;
+    text-align:center;
+  }
+  .stat .num{
+    font-family: Georgia, serif;
+    font-size: 24px;
+    display:block;
+  }
+  .stat .lbl{ font-size:12px; color:var(--ink-soft); }
+  .stat.easy .num{ color: var(--moss); }
+  .stat.hard .num{ color: var(--plum); }
+
+  .review-list{
+    background: var(--card);
+    border:1px solid var(--line);
+    border-radius:4px;
+    padding: 14px 16px;
+    margin-bottom: 16px;
+  }
+  .review-list .chips{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:8px;
+  }
+  .chip{
+    background: var(--plum-bg);
+    color: var(--plum);
+    font-size: 13px;
+    padding: 4px 10px;
+    border-radius: 3px;
+  }
+  .empty-note{
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+
+  .log{
+    background: var(--card);
+    border:1px solid var(--line);
+    border-radius:4px;
+    max-height: 420px;
+    overflow-y:auto;
+  }
+  .log-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap: 10px;
+    padding: 11px 16px;
+    border-bottom: 1px solid var(--line);
+    font-size: 14px;
+  }
+  .log-row:last-child{ border-bottom:none; }
+  .log-row .lw{ font-weight:600; }
+  .log-row .lt{ color: var(--ink-soft); font-size: 12px; }
+  .tag{
+    font-size: 11px;
+    padding: 3px 9px;
+    border-radius: 20px;
+    font-weight:600;
+    white-space:nowrap;
+  }
+  .tag.easy{ background: var(--moss-bg); color: var(--moss); }
+  .tag.hard{ background: var(--plum-bg); color: var(--plum); }
+
+  .reset-row{
+    margin-top: 14px;
+    text-align:right;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Word Study</h1>
+  </header>
+
+  <div class="sync-panel">
+    <div class="sync-row">
+      <span class="sync-label">This device's sync code:</span>
+      <code class="sync-code" id="syncCodeDisplay">—</code>
+      <button class="ghost-btn" id="copyCodeBtn">Copy</button>
+    </div>
+    <div class="sync-row">
+      <input type="text" id="linkCodeInput" placeholder="Paste a code from your other device to link it">
+      <button class="ghost-btn" id="linkCodeBtn">Link</button>
+    </div>
+    <span class="sync-note" id="syncNote">Connecting…</span>
+  </div>
+
+  <label class="source-toggle" id="sourceToggle">
+    <input type="checkbox" id="onlineCheck">
+    <span>Pull words from an online dictionary (needs internet, more variety than the built-in 80)</span>
+  </label>
+
+  <div class="layout">
+    <!-- LEFT: word card -->
+    <div>
+      <div class="card">
+        <p class="pos" id="pos"></p>
+        <h2 class="word" id="word">—</h2>
+        <p class="meaning" id="meaning"></p>
+        <p class="example" id="example"></p>
+        <p class="word-status" id="wordStatus"></p>
+
+        <div class="controls">
+          <div class="duration-row" id="durationRow">
+            <span class="duration-label">Study time:</span>
+            <button class="dur-btn active" data-secs="60">1 min</button>
+            <button class="dur-btn" data-secs="90">1.5 min</button>
+            <button class="dur-btn" data-secs="120">2 min</button>
+          </div>
+          <button class="primary-btn" id="startBtn">Start</button>
+
+          <div class="timer-run" id="timerRun">
+            <div class="timer-face" id="timerFace">1:00</div>
+            <div class="bar-track"><div class="bar-fill" id="barFill"></div></div>
+            <button class="ghost-btn" id="skipBtn">Skip</button>
+          </div>
+
+          <div class="review" id="reviewBox">
+            <p>Time's up — how did that one feel?</p>
+            <div class="review-btns">
+              <button class="diff-btn easy" id="easyBtn">Easy</button>
+              <button class="diff-btn hard" id="hardBtn">Hard</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT: history -->
+    <div>
+      <p class="panel-title">Your progress</p>
+      <div class="stats">
+        <div class="stat"><span class="num" id="statTotal">0</span><span class="lbl">words seen</span></div>
+        <div class="stat easy"><span class="num" id="statEasy">0</span><span class="lbl">easy</span></div>
+        <div class="stat hard"><span class="num" id="statHard">0</span><span class="lbl">hard</span></div>
+      </div>
+
+      <div class="review-list">
+        <p class="panel-title" style="margin:0;">Worth revisiting</p>
+        <div id="revisitBox"><span class="empty-note">Words you mark hard will collect here.</span></div>
+      </div>
+
+      <p class="panel-title">Log</p>
+      <div class="log" id="logBox">
+        <div class="log-row"><span class="empty-note">No words studied yet — press Start to begin.</span></div>
+      </div>
+      <div class="reset-row">
+        <button class="ghost-btn" id="resetBtn">Clear log</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const WORDS = [
+["ambiguous","adj.","open to more than one interpretation; not clearly defined","The instructions were so ambiguous that half the class solved the wrong problem."],
+["candid","adj.","honest and direct, without holding back","She gave a candid answer about why the project failed."],
+["deteriorate","v.","to become progressively worse","His handwriting deteriorated after years of typing everything."],
+["eloquent","adj.","fluent and persuasive in speaking or writing","The valedictorian's eloquent speech moved half the audience to tears."],
+["feasible","adj.","possible to do easily or practically","Building the bridge in six months isn't feasible with this budget."],
+["gullible","adj.","easily deceived or tricked","He's gullible enough to believe the rumor without checking it."],
+["hinder","v.","to slow down or create difficulty for","Heavy rain hindered the rescue team's progress."],
+["inevitable","adj.","certain to happen; unavoidable","With no backup plan, the delay was inevitable."],
+["jubilant","adj.","feeling or showing great happiness","The team was jubilant after winning the championship."],
+["lucrative","adj.","producing a great deal of profit","Freelance design became a surprisingly lucrative side job."],
+["meticulous","adj.","showing great attention to detail","The auditor was meticulous, checking every receipt twice."],
+["notorious","adj.","famous for something bad","The alley was notorious for pickpockets."],
+["obsolete","adj.","no longer in use; outdated","Floppy disks became obsolete once USB drives appeared."],
+["plausible","adj.","seeming reasonable or probable","Her excuse for being late was plausible, if a little rehearsed."],
+["quaint","adj.","attractively old-fashioned or unusual","They stayed in a quaint cottage by the coast."],
+["resilient","adj.","able to recover quickly from difficulties","Coral reefs can be surprisingly resilient after a mild bleaching event."],
+["scarce","adj.","insufficient for demand; rare","Clean water became scarce during the drought."],
+["tedious","adj.","long, slow, and boring","Filling out the same form five times was tedious."],
+["unanimous","adj.","fully agreed by everyone","The committee reached a unanimous decision within an hour."],
+["versatile","adj.","able to adapt to many different functions","A versatile employee can move between teams without missing a beat."],
+["wary","adj.","cautious about possible dangers","She stayed wary of any email asking for her password."],
+["zealous","adj.","having great energy for a cause","The new coach was zealous about early morning practices."],
+["articulate","v.","to express an idea clearly","He struggled to articulate why the plan felt wrong."],
+["concise","adj.","giving information clearly in few words","Her report was concise, just two pages instead of ten."],
+["diligent","adj.","showing care and effort in work","The diligent intern double-checked every line of code."],
+["empirical","adj.","based on observation or experiment rather than theory","The study relied on empirical data collected over three years."],
+["facilitate","v.","to make a process easier","A shared calendar facilitated planning across time zones."],
+["gregarious","adj.","fond of company; sociable","Being gregarious, she made friends within the first hour of orientation."],
+["hypothesis","n.","a proposed explanation to be tested","Their hypothesis was that plants grow faster under red light."],
+["impartial","adj.","not favoring one side over another","The referee stayed impartial despite the crowd's protests."],
+["jeopardize","v.","to put at risk of harm or loss","One missed deadline could jeopardize the entire contract."],
+["keen","adj.","having a strong interest or enthusiasm","He's keen on learning Japanese before the trip."],
+["legitimate","adj.","conforming to the law or accepted standards","She raised a legitimate concern about the budget."],
+["mundane","adj.","lacking excitement; ordinary","Most of the job involves mundane paperwork."],
+["negligent","adj.","failing to take proper care","The landlord was negligent in fixing the broken railing."],
+["obscure","adj.","not well known; hard to understand","The footnote referenced an obscure nineteenth-century essay."],
+["pragmatic","adj.","dealing with things sensibly and practically","Their pragmatic approach favored a working prototype over a perfect plan."],
+["quell","v.","to put an end to, especially by force","The manager stepped in to quell the argument."],
+["reluctant","adj.","unwilling and hesitant","He was reluctant to hand in the essay a second time."],
+["skeptical","adj.","not easily convinced; doubtful","She stayed skeptical of the ad's claims until she read the label."],
+["thrive","v.","to grow or develop successfully","The startup thrived once it found the right market."],
+["ubiquitous","adj.","present everywhere","Smartphones have become ubiquitous, even in remote villages."],
+["vague","adj.","not clearly expressed or defined","His directions were too vague to follow."],
+["withhold","v.","to refuse to give something","The landlord withheld the deposit over a stain on the carpet."],
+["yield","v.","to produce a result, or to give way to pressure","The negotiations finally yielded a compromise."],
+["adjacent","adj.","next to or adjoining something","The library sits adjacent to the main lecture hall."],
+["benevolent","adj.","well-meaning and kindly","A benevolent donor covered the scholarship shortfall."],
+["coherent","adj.","logical and consistent; easy to follow","Her argument was coherent from the first sentence to the last."],
+["discern","v.","to perceive or recognize something clearly","It was hard to discern any pattern in the data."],
+["elaborate","v.","to add more detail to something","The professor asked him to elaborate on his second point."],
+["fluctuate","v.","to rise and fall irregularly","Prices fluctuated wildly during the shortage."],
+["hasty","adj.","done with excessive speed; rushed","A hasty decision under pressure led to the mistake."],
+["imminent","adj.","about to happen very soon","Dark clouds signaled an imminent storm."],
+["justify","v.","to show or prove to be right or reasonable","He couldn't justify the extra cost to his manager."],
+["lenient","adj.","more merciful or tolerant than expected","The professor was lenient about the late submission."],
+["meager","adj.","lacking in quantity or quality","They survived on a meager ration of rice and beans."],
+["novice","n.","a person new to a skill or activity","As a novice climber, she stuck to the easier routes."],
+["optimistic","adj.","hopeful and confident about the future","He stayed optimistic even after the second rejection."],
+["plagiarize","v.","to copy another's work and pass it off as one's own","The essay was flagged for plagiarizing a blog post."],
+["rigorous","adj.","thorough and strict","The lab followed a rigorous safety protocol."],
+["subtle","adj.","not obvious; delicate","There was a subtle shift in her tone when he mentioned the deadline."],
+["tentative","adj.","not certain or fixed; provisional","They set a tentative date for the presentation."],
+["unprecedented","adj.","never done or known before","The heatwave reached unprecedented temperatures for the region."],
+["viable","adj.","capable of working successfully","Solar power became a viable option once panel costs dropped."],
+["wholesome","adj.","promoting health or well-being; morally good","The film had a wholesome message about family."],
+["abrupt","adj.","sudden and unexpected","The meeting ended with an abrupt announcement."],
+["candor","n.","the quality of being open and honest","She spoke with unusual candor about her mistakes."],
+["deficient","adj.","lacking an essential quality or element","The diet was deficient in vitamin D."],
+["enhance","v.","to improve the quality of something","New lighting enhanced the mood of the whole room."],
+["frugal","adj.","careful about spending money; economical","Growing up frugal, he still reuses jars for storage."],
+["hypocrite","n.","someone who acts against their stated beliefs","Critics called the politician a hypocrite for breaking his own rule."],
+["incentive","n.","something that motivates action","A cash bonus served as an incentive to finish early."],
+["jarring","adj.","unpleasantly sudden or incongruous","The abrupt key change felt jarring in the middle of the song."],
+["lament","v.","to express sorrow or regret","She lamented not applying for the scholarship sooner."],
+["myriad","adj.","a very great number of something","The city offers a myriad of small, family-run restaurants."],
+["nuance","n.","a subtle difference in meaning or expression","Translation software often misses cultural nuance."],
+["onset","n.","the beginning of something, often unwelcome","The onset of winter caught the farmers off guard."],
+["procrastinate","v.","to delay doing something that should be done","He tends to procrastinate until the night before a deadline."],
+["quandary","n.","a state of uncertainty over what to do","She was in a quandary about which offer to accept."],
+["redundant","adj.","no longer needed; superfluous","Half the sentence was redundant once the title said the same thing."]
+];
+
+// =========================================================================
+// FIREBASE SETUP — using Abdallah's random-word project (Realtime Database).
+// =========================================================================
+const firebaseConfig = {
+  apiKey: "AIzaSyCNIVMzmAed4H-7LM1hzEpSXcs9RrmlQq8",
+  authDomain: "random-word-74d57.firebaseapp.com",
+  databaseURL: "https://random-word-74d57-default-rtdb.firebaseio.com",
+  projectId: "random-word-74d57",
+  storageBucket: "random-word-74d57.firebasestorage.app",
+  messagingSenderId: "179959955203",
+  appId: "1:179959955203:web:d3320834dc2b5923333336"
+};
+
+let db = null;
+let firebaseReady = false;
+try{
+  firebase.initializeApp(firebaseConfig);
+  db = firebase.database();
+  firebaseReady = true;
+}catch(e){
+  console.error('Firebase failed to initialize — check firebaseConfig.', e);
+}
+
+// ---- state ----
+let queue = [];
+let currentWord = null;
+let selectedSecs = 60;
+let remaining = 60;
+let timerId = null;
+let log = [];
+let onlineMode = false;
+let onlinePool = null;      // cached word list, fetched once per session
+let onlinePoolPromise = null;
+let syncCode = null;
+let currentSyncRef = null;
+let currentSyncCallback = null;
+let suppressNextSnapshotWrite = false;
+
+function shuffle(arr){
+  const a = arr.slice();
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+
+function refillQueue(){
+  queue = shuffle(WORDS.map((_,i)=>i));
+}
+
+function localWord(){
+  if(queue.length === 0) refillQueue();
+  const idx = queue.pop();
+  const w = WORDS[idx];
+  return {word: w[0], pos: w[1], meaning: w[2], example: w[3]};
+}
+
+// Loads a large public word list once (cached for the session) so the online
+// mode has a big pool to sample from before looking each candidate up.
+function loadOnlinePool(){
+  if(onlinePool) return Promise.resolve(onlinePool);
+  if(onlinePoolPromise) return onlinePoolPromise;
+  onlinePoolPromise = fetch('https://raw.githubusercontent.com/dwyl/english-words/master/words_alpha.txt')
+    .then(res => { if(!res.ok) throw new Error('list fetch failed'); return res.text(); })
+    .then(text => {
+      onlinePool = text.split('\n')
+        .map(w => w.trim())
+        .filter(w => w.length >= 5 && w.length <= 11 && /^[a-z]+$/.test(w));
+      return onlinePool;
+    });
+  return onlinePoolPromise;
+}
+
+// Picks a random candidate from the pool and looks it up against the free
+// dictionary API; retries with a new candidate if a word has no entry.
+async function fetchOnlineWord(maxAttempts){
+  maxAttempts = maxAttempts || 7;
+  let pool;
+  try{
+    pool = await loadOnlinePool();
+  }catch(e){
+    return null;
+  }
+  for(let i=0;i<maxAttempts;i++){
+    const candidate = pool[Math.floor(Math.random()*pool.length)];
+    try{
+      const res = await fetch('https://api.dictionaryapi.dev/api/v2/entries/en/' + encodeURIComponent(candidate));
+      if(!res.ok) continue;
+      const data = await res.json();
+      const entry = data[0];
+      if(!entry || !entry.meanings || !entry.meanings.length) continue;
+      let pos = entry.meanings[0].partOfSpeech || '';
+      let definition = null, example = null;
+      for(const m of entry.meanings){
+        for(const d of m.definitions){
+          if(!definition){ definition = d.definition; pos = m.partOfSpeech || pos; }
+          if(d.example){ example = d.example; break; }
+        }
+        if(example) break;
+      }
+      if(!definition) continue;
+      return {
+        word: entry.word || candidate,
+        pos: pos,
+        meaning: definition,
+        example: example || 'No example sentence was available for this one — try writing your own.'
+      };
+    }catch(e){ continue; }
+  }
+  return null;
+}
+
+async function showWord(){
+  const statusEl = document.getElementById('wordStatus');
+  if(onlineMode){
+    statusEl.textContent = 'Fetching a word online…';
+    const data = await fetchOnlineWord();
+    if(data){
+      currentWord = data;
+      statusEl.textContent = 'From the online dictionary';
+    }else{
+      currentWord = localWord();
+      statusEl.textContent = "Online lookup didn't come through — showing one from the built-in list";
+    }
+  }else{
+    currentWord = localWord();
+    statusEl.textContent = '';
+  }
+  document.getElementById('pos').textContent = currentWord.pos;
+  document.getElementById('word').textContent = currentWord.word;
+  document.getElementById('meaning').textContent = currentWord.meaning;
+  document.getElementById('example').textContent = currentWord.example;
+}
+
+function resetControls(){
+  document.getElementById('durationRow').style.opacity = '1';
+  document.querySelectorAll('.dur-btn').forEach(b=>b.disabled=false);
+  document.getElementById('startBtn').style.display = 'inline-block';
+  document.getElementById('startBtn').disabled = false;
+  document.getElementById('timerRun').classList.remove('active');
+  document.getElementById('reviewBox').classList.remove('active');
+}
+
+function fmt(s){
+  const m = Math.floor(s/60);
+  const sec = s%60;
+  return m + ':' + (sec<10?'0':'') + sec;
+}
+
+function startTimer(){
+  document.getElementById('durationRow').style.opacity = '0.5';
+  document.querySelectorAll('.dur-btn').forEach(b=>b.disabled=true);
+  document.getElementById('startBtn').style.display = 'none';
+  document.getElementById('timerRun').classList.add('active');
+  remaining = selectedSecs;
+  document.getElementById('timerFace').textContent = fmt(remaining);
+  document.getElementById('barFill').style.width = '100%';
+
+  timerId = setInterval(()=>{
+    remaining--;
+    document.getElementById('timerFace').textContent = fmt(remaining);
+    document.getElementById('barFill').style.width = (remaining/selectedSecs*100) + '%';
+    if(remaining <= 0){
+      clearInterval(timerId);
+      endTimer();
+    }
+  }, 1000);
+}
+
+function endTimer(){
+  document.getElementById('timerRun').classList.remove('active');
+  document.getElementById('reviewBox').classList.add('active');
+}
+
+async function recordDifficulty(diff){
+  log.unshift({
+    word: currentWord.word,
+    meaning: currentWord.meaning,
+    diff: diff,
+    ts: Date.now()
+  });
+  saveLog();
+  renderHistory();
+  resetControls();
+  document.getElementById('easyBtn').disabled = true;
+  document.getElementById('hardBtn').disabled = true;
+  await showWord();
+  document.getElementById('easyBtn').disabled = false;
+  document.getElementById('hardBtn').disabled = false;
+}
+
+// ---- sync (Firestore) ----
+
+function makeSyncCode(){
+  // Short, easy to read aloud/type on another device: 4 blocks of 4 chars.
+  const chars = 'abcdefghjkmnpqrstuvwxyz23456789'; // no 0/o/1/l/i ambiguity
+  let out = '';
+  for(let b=0;b<4;b++){
+    if(b>0) out += '-';
+    for(let i=0;i<4;i++) out += chars[Math.floor(Math.random()*chars.length)];
+  }
+  return out;
+}
+
+function setSyncNote(text){
+  document.getElementById('syncNote').textContent = text;
+}
+
+async function saveLog(){
+  if(!firebaseReady || !syncCode){
+    setSyncNote('Not syncing — check your Firebase setup');
+    return;
+  }
+  try{
+    suppressNextSnapshotWrite = true;
+    await db.ref('logs/' + syncCode).set({
+      log: JSON.stringify(log),
+      updatedAt: Date.now()
+    });
+    setSyncNote('Synced just now');
+  }catch(e){
+    console.error(e);
+    setSyncNote('Sync failed — saved on this device only');
+  }
+}
+
+function attachSyncListener(){
+  if(currentSyncRef && currentSyncCallback) currentSyncRef.off('value', currentSyncCallback);
+  if(!firebaseReady || !syncCode) return;
+  setSyncNote('Connecting…');
+  currentSyncRef = db.ref('logs/' + syncCode);
+  currentSyncCallback = currentSyncRef.on('value', snapshot => {
+    if(suppressNextSnapshotWrite){
+      suppressNextSnapshotWrite = false;
+      setSyncNote('Synced');
+      return;
+    }
+    const data = snapshot.val();
+    log = (data && data.log) ? JSON.parse(data.log) : [];
+    renderHistory();
+    setSyncNote('Synced');
+  }, err => {
+    console.error(err);
+    setSyncNote('Sync connection failed — check firebaseConfig and Realtime Database rules');
+  });
+}
+
+function initSync(){
+  syncCode = localStorage.getItem('wordStudySyncCode');
+  if(!syncCode){
+    syncCode = makeSyncCode();
+    localStorage.setItem('wordStudySyncCode', syncCode);
+  }
+  document.getElementById('syncCodeDisplay').textContent = syncCode;
+  attachSyncListener();
+}
+
+document.getElementById('copyCodeBtn').addEventListener('click', async ()=>{
+  try{
+    await navigator.clipboard.writeText(syncCode);
+    setSyncNote('Code copied — paste it on your other device');
+  }catch(e){
+    setSyncNote('Copy failed — select the code manually');
+  }
+});
+
+document.getElementById('linkCodeBtn').addEventListener('click', ()=>{
+  const input = document.getElementById('linkCodeInput');
+  const val = input.value.trim().toLowerCase();
+  if(!val) return;
+  syncCode = val;
+  localStorage.setItem('wordStudySyncCode', syncCode);
+  document.getElementById('syncCodeDisplay').textContent = syncCode;
+  input.value = '';
+  attachSyncListener();
+});
+
+function renderHistory(){
+  const total = log.length;
+  const easy = log.filter(l=>l.diff==='easy').length;
+  const hard = log.filter(l=>l.diff==='hard').length;
+  document.getElementById('statTotal').textContent = total;
+  document.getElementById('statEasy').textContent = easy;
+  document.getElementById('statHard').textContent = hard;
+
+  // revisit chips: unique words marked hard, most recent first
+  const seen = new Set();
+  const revisit = [];
+  log.forEach(l=>{
+    if(l.diff==='hard' && !seen.has(l.word)){
+      seen.add(l.word);
+      revisit.push(l.word);
+    }
+  });
+  const revisitBox = document.getElementById('revisitBox');
+  if(revisit.length === 0){
+    revisitBox.innerHTML = '<span class="empty-note">Words you mark hard will collect here.</span>';
+  }else{
+    revisitBox.innerHTML = '<div class="chips">' +
+      revisit.slice(0,30).map(w=>`<span class="chip">${w}</span>`).join('') +
+      '</div>';
+  }
+
+  const logBox = document.getElementById('logBox');
+  if(log.length === 0){
+    logBox.innerHTML = '<div class="log-row"><span class="empty-note">No words studied yet — press Start to begin.</span></div>';
+  }else{
+    logBox.innerHTML = log.slice(0,200).map(l=>{
+      const d = new Date(l.ts);
+      const dateStr = d.toLocaleDateString(undefined,{month:'short',day:'numeric'});
+      return `<div class="log-row">
+        <span>
+          <span class="lw">${l.word}</span><br>
+          <span class="lt">${dateStr}</span>
+        </span>
+        <span class="tag ${l.diff}">${l.diff}</span>
+      </div>`;
+    }).join('');
+  }
+}
+
+// ---- event wiring ----
+document.querySelectorAll('.dur-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('.dur-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    selectedSecs = parseInt(btn.dataset.secs,10);
+  });
+});
+
+document.getElementById('startBtn').addEventListener('click', startTimer);
+document.getElementById('skipBtn').addEventListener('click', ()=>{
+  clearInterval(timerId);
+  endTimer();
+});
+document.getElementById('easyBtn').addEventListener('click', ()=>recordDifficulty('easy'));
+document.getElementById('hardBtn').addEventListener('click', ()=>recordDifficulty('hard'));
+
+document.getElementById('resetBtn').addEventListener('click', async ()=>{
+  if(!confirm('Clear your entire word log? This can\'t be undone.')) return;
+  log = [];
+  await saveLog();
+  renderHistory();
+});
+
+document.getElementById('onlineCheck').addEventListener('change', async (e)=>{
+  onlineMode = e.target.checked;
+  if(onlineMode) loadOnlinePool().catch(()=>{}); // start fetching in the background
+  await showWord();
+});
+
+// ---- init ----
+refillQueue();
+showWord();
+if(firebaseReady){
+  initSync();
+}else{
+  setSyncNote('Firebase is not configured yet — edit firebaseConfig in this file');
+}
+</script>
+</body>
+</html>
